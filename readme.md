@@ -1,6 +1,9 @@
 Add to /config/app.php:
 
-`Avart\Forms\FormsServiceProvider::class,`
+    'providers' => [
+        // ...
+        Avart\Forms\FormsServiceProvider::class,
+    ];
 
 And to the composer.json:
 
