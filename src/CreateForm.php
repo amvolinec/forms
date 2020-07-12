@@ -59,31 +59,46 @@ class CreateForm extends Command
                 $this->deleteFiles();
             }
 
-            Artisan::call("make:model {$this->model->model}");
-            $path = app_path("{$this->model->model}.php");
-            $this->info('Model created ' . $path);
+            if($this->model->create_model === 1){
+                Artisan::call("make:model {$this->model->model}");
+                $path = app_path("{$this->model->model}.php");
+                $this->info('Model created ' . $path);
 
-            $this->updateModel($path);
-            $this->info('Model updated ' . $path);
-            $this->addFile('Model', $path);
+                $this->updateModel($path);
+                $this->info('Model updated ' . $path);
+                $this->addFile('create_model', $path);
+            }
 
-            $filename = $this->createView();
-            $this->info('Index View created ' . $filename);
-            $this->addFile('Index view', $filename);
+            if($this->model->create_views === 1) {
+                $filename = $this->createView();
+                $this->info('Index View created ' . $filename);
+                $this->addFile('create_views', $filename);
 
-            $filename = $this->createViewCreate();
-            $this->info('Create View created ' . $filename);
-            $this->addFile('Crete View', $filename);
+                $filename = $this->createViewCreate();
+                $this->info('Create View created ' . $filename);
+                $this->addFile('create_views', $filename);
+            }
 
-            $filename = $this->createMigration();
-            $this->info('Migration created ' . $filename);
-            $this->addFile('Migration', $filename);
+            if($this->model->create_controller === 1) {
+                $filename = $this->createController();
+                $this->info('Controller created ' . $filename);
+                $this->addFile('create_controller', $filename);
+            }
 
-            $filename = $this->createController();
-            $this->info('Controller created ' . $filename);
-            $this->addFile('Controller', $filename);
+            if($this->model->create_migration === 1) {
+                $filename = $this->createMigration();
+                $this->info('Migration created ' . $filename);
+                $this->addFile('create_migration', $filename);
 
-            $this->info("Run: php artisasn migrate\nAdd to routes:");
+                $confirm = $this->ask('Run migration? (y/n)');
+
+                if ($confirm === 'y') {
+                    Artisan::call("migrate");
+                } else {
+                    $this->info("Run: php artisasn migrate");
+                }
+
+            }
         }
 
     }
