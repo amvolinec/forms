@@ -20,7 +20,7 @@ class CreateForm extends Command
      *
      * @var string
      */
-    protected $signature = 'form:create {model : The model name}';
+    protected $signature = 'make:form {model : The model name}';
 
     /**
      * The console command description.
