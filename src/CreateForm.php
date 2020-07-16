@@ -127,7 +127,7 @@ class CreateForm extends Command
             }
         }
 
-        $creator = new TableCreator($this->model->name, $this->model->route, $this->model->fields);
+        $creator = new TableCreator($this->model->name, $this->model->route, $this->model->fields, $this->model->model);
 
         $fileName = $dir . '/index.blade.php';
         file_put_contents($fileName, $creator->get());
