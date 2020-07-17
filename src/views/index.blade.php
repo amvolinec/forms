@@ -22,8 +22,7 @@
 
                         @forelse($tables AS $row)
                             <div class="m-3">
-                                <a href="{{ route('forms.edit', $row->route) }}">{{ __('Edit') }} {{ $row->name }}</a>
-                                | <a href="/{{ $row->route}}">{{ __('Manage') }} {{ $row->name }}</a>
+                                <a href="{{ route('forms.edit', $row->route) }}">{{ $row->name }}</a>
                             </div>
                         @empty
                             <p>No tables</p>

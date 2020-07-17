@@ -1,25 +1,11 @@
-Add to /config/app.php:
+Add 
 
-    'providers' => [
-        // ...
-        Avart\Forms\FormsServiceProvider::class,
-    ];
+`Avart\Forms\FormsServiceProvider::class,`
 
-And to the composer.json:
+to the /config/app.php file.
 
-    "autoload": {
-        "psr-4": {
-            ...
-            "Avart\\Forms\\": "packages/avart/forms/src",
-            "Avart\\Forms\\Seeds\\": "packages/avart/forms/src/seeds"
-        },
-
-Then run
-
-`composer dumpautoload`
+Run
 
 `php artisan migrate`
-
-`php artisan db:seed --class="Avart\Forms\Seeds\TypeSeeder"`
 
 `php artisan vendor:publish --tag=public --force`

@@ -46,7 +46,7 @@ class CreateFieldsTable extends Migration
             $table->string('default')->nullable();
             $table->boolean('fillable')->default(1);
             $table->boolean('inlist')->default(1);
-            $table->text('settings')->nullable();
+            $table->json('settings')->nullable();
             $table->timestamps();
 
             $table->foreign('table_id')
