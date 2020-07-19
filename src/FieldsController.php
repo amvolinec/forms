@@ -48,7 +48,7 @@ class FieldsController extends Controller
         $data = Table::where('name', '=', $table)->first();
         if (!empty($table)) {
             $fields = $data->fields;
-            $creator = new TableCreator($data->name, $data->route, $fields, $data->model);
+            $creator = new TableCreator($data->name, $data->route, $fields);
             $html = $creator->get();
         } else {
             $html = "Table not found";

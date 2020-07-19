@@ -20,7 +20,7 @@ class CreateForm extends Command
      *
      * @var string
      */
-    protected $signature = 'make:form {model : The model name}';
+    protected $signature = 'form:create {model : The model name}';
 
     /**
      * The console command description.
@@ -59,46 +59,31 @@ class CreateForm extends Command
                 $this->deleteFiles();
             }
 
-            if($this->model->create_model === 1){
-                Artisan::call("make:model {$this->model->model}");
-                $path = app_path("{$this->model->model}.php");
-                $this->info('Model created ' . $path);
+            Artisan::call("make:model {$this->model->model}");
+            $path = app_path("{$this->model->model}.php");
+            $this->info('Model created ' . $path);
 
-                $this->updateModel($path);
-                $this->info('Model updated ' . $path);
-                $this->addFile('create_model', $path);
-            }
+            $this->updateModel($path);
+            $this->info('Model updated ' . $path);
+            $this->addFile('Model', $path);
 
-            if($this->model->create_views === 1) {
-                $filename = $this->createView();
-                $this->info('Index View created ' . $filename);
-                $this->addFile('create_views', $filename);
+            $filename = $this->createView();
+            $this->info('Index View created ' . $filename);
+            $this->addFile('Index view', $filename);
 
-                $filename = $this->createViewCreate();
-                $this->info('Create View created ' . $filename);
-                $this->addFile('create_views', $filename);
-            }
+            $filename = $this->createViewCreate();
+            $this->info('Create View created ' . $filename);
+            $this->addFile('Crete View', $filename);
 
-            if($this->model->create_controller === 1) {
-                $filename = $this->createController();
-                $this->info('Controller created ' . $filename);
-                $this->addFile('create_controller', $filename);
-            }
+            $filename = $this->createMigration();
+            $this->info('Migration created ' . $filename);
+            $this->addFile('Migration', $filename);
 
-            if($this->model->create_migration === 1) {
-                $filename = $this->createMigration();
-                $this->info('Migration created ' . $filename);
-                $this->addFile('create_migration', $filename);
+            $filename = $this->createController();
+            $this->info('Controller created ' . $filename);
+            $this->addFile('Controller', $filename);
 
-                $confirm = $this->ask('Run migration? (y/n)');
-
-                if ($confirm === 'y') {
-                    Artisan::call("migrate");
-                } else {
-                    $this->info("Run: php artisasn migrate");
-                }
-
-            }
+            $this->info("Run: php artisasn migrate\nAdd to routes:");
         }
 
     }
@@ -127,7 +112,7 @@ class CreateForm extends Command
             }
         }
 
-        $creator = new TableCreator($this->model->name, $this->model->route, $this->model->fields, $this->model->model);
+        $creator = new TableCreator($this->model->name, $this->model->route, $this->model->fields);
 
         $fileName = $dir . '/index.blade.php';
         file_put_contents($fileName, $creator->get());
