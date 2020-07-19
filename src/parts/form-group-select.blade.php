@@ -4,9 +4,9 @@
                                 <div class="col-md-6">
                                     <select class="form-control" name="%1$s" id="%1$s" %3$s>
                                         <option value="" disabled selected>{{ __('Select your option') }}</option>
-                                        @foreach($items as $item)
+                                        @foreach($%5$s as $item)
                                             <option value="{{ $item->id }}"
-                                                    @if(isset($user) && $item->id === $user->%1$s) selected @endif>{{ $item->name }}</option>
+                                                    @if(isset($%4$s) && $item->id === $%4$s->%1$s) selected @endif>{{ $item->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>

@@ -25,16 +25,18 @@ class ViewCreator
         return $content;
     }
 
-    protected function getInner(){
-        foreach($this->fields as $field){
+    protected function getInner()
+    {
+        foreach ($this->fields as $field) {
             $content = file_get_contents(__DIR__ . "/parts/form-group-{$field->type->class}.blade.php");
-            $this->inner .= sprintf($content, $field->name, $field->title, $this->getAdditional($field), $this->route);
+            $this->inner .= sprintf($content, $field->name, $field->title, $this->getAdditional($field), $this->route, substr($this->name, 0, (strlen($this->name) - 3)));
         }
         return $this->inner;
     }
 
-    public function getAdditional($field){
-        if($field->type->class === 'checkbox' && $field->default === '1'){
+    public function getAdditional($field)
+    {
+        if ($field->type->class === 'checkbox' && $field->default === '1') {
             return ' checked';
         }
         return '';
