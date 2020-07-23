@@ -28,8 +28,13 @@ class ViewCreator
     protected function getInner()
     {
         foreach ($this->fields as $field) {
-            $content = file_get_contents(__DIR__ . "/parts/form-group-{$field->type->class}.blade.php");
-            $this->inner .= sprintf($content, $field->name, $field->title, $this->getAdditional($field), $this->route, substr($this->name, 0, (strlen($this->name) - 3)));
+            if($field->type->class === 'select'){
+                $content = file_get_contents(__DIR__ . "/parts/form-group-{$field->type->class}.blade.php");
+                $this->inner .= sprintf($content, $field->name, $field->title, $this->getAdditional($field), $this->route, substr($this->name, 0, (strlen($this->name) - 3)));
+            } else {
+                $content = file_get_contents(__DIR__ . "/parts/form-group-{$field->type->class}.blade.php");
+                $this->inner .= sprintf($content, $field->name, $field->title, $this->getAdditional($field), $this->route);
+            }
         }
         return $this->inner;
     }
