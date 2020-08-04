@@ -15,7 +15,7 @@ class CreateFieldsTable extends Migration
     {
 
         Schema::create('tables', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
             $table->string('name');
             $table->string('description')->nullable();
             $table->string('route')->nullable();
@@ -29,14 +29,14 @@ class CreateFieldsTable extends Migration
         });
 
         Schema::create('types', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
             $table->string('name');
             $table->string('class')->nullable();
             $table->timestamps();
         });
 
         Schema::create('fields', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
             $table->unsignedBigInteger('table_id')->nullable();
             $table->unsignedBigInteger('type_id')->default(1);
             $table->unsignedSmallInteger('length')->nullable();
@@ -59,7 +59,7 @@ class CreateFieldsTable extends Migration
         });
 
         Schema::create('table_files', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
             $table->unsignedBigInteger('table_id')->nullable();
             $table->string('name');
             $table->string('uri')->nullable();
