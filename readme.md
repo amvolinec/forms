@@ -26,6 +26,8 @@ to the composer.json file.
 
 Run
 
+`composer dumpautoload`
+
 `php artisan migrate`
 
 `php artisan vendor:publish --tag=public --force`
