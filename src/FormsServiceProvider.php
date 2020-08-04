@@ -35,5 +35,9 @@ class FormsServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__.'/assets' => public_path('avart/forms'),
         ], 'public');
+
+        $this->publishes([
+            __DIR__.'/../database/seeds' => database_path('seeds'),
+        ], 'seeds');
     }
 }

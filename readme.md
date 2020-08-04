@@ -28,6 +28,20 @@ Run
 
 `composer dumpautoload`
 
-`php artisan migrate`
+`php artisan vendor:publish --provider="Avart\Forms\FormsServiceProvider" --force`
 
-`php artisan vendor:publish --tag=public --force`
+Add 
+
+`$this->call(TypeSeeder::class);` 
+
+to the 
+
+`database/seeds/DatabaseSeeder.php`
+
+Run
+
+`composer dumpautoload`
+
+`php artisan migrate:fresh --seed`
+
+
