@@ -29,6 +29,8 @@ class CreateForm extends Command
      */
     protected $description = 'Create form';
 
+    protected $erase = false;
+
     /**
      * Create a new command instance.
      *
@@ -56,7 +58,7 @@ class CreateForm extends Command
 
         } else {
 
-            if (!empty($this->model->files)) {
+            if ($this->model->files->count > 0) {
                 $this->deleteFiles();
             }
 
@@ -163,6 +165,7 @@ class CreateForm extends Command
 
         if ($confirm === 'y') {
 
+            $this->erase = true;
             $last_migration = $this->getLastMigrationName();
 
             foreach ($this->model->files as $file) {
@@ -209,7 +212,7 @@ class CreateForm extends Command
                 return "Route just added now!";
             }
         } else {
-            $generated = file_get_contents(__DIR__. '/parts/web.php.stub');
+            $generated = file_get_contents(__DIR__ . '/parts/web.php.stub');
             $routes = sprintf($generated, $this->model->route, $this->model->model);
             if (file_put_contents($file, $routes, FILE_APPEND)) {
                 return "Route just added now!";
@@ -221,13 +224,14 @@ class CreateForm extends Command
 
     protected function migrate()
     {
-        $confirm = $this->ask('Run migrations ? (y/n)');
-
-        if ($confirm === 'y') {
-            Artisan::call('migrate');
-            $this->info("Migrated successfully\n");
-        } else {
-            $this->info("\nRun:\n\nphp artisan migrate\n\n");
+        if (!$this->erase) {
+            $confirm = $this->ask('Run migrations ? (y/n)');
+            if ($confirm === 'y') {
+                Artisan::call('migrate');
+                $this->info("Migrated successfully\n");
+                return;
+            }
         }
+        $this->info("\nRun:\n\nphp artisan migrate\n\n");
     }
 }
