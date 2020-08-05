@@ -45,3 +45,6 @@ Run
 `php artisan migrate:fresh --seed`
 
 
+Create a form:
+
+`form:create Model`t 
