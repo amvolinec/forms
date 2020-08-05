@@ -205,12 +205,15 @@ class CreateForm extends Command
 
         if (strpos($routes, "Route::group(['middleware' => ['web', 'auth']], function () {") !== false) {
             $routes = str_replace("Route::group(['middleware' => ['web', 'auth']], function () {", $added, $routes);
+            if (file_put_contents($file, $routes)) {
+                return "Route just added now!";
+            }
         } else {
-
-        }
-
-        if (file_put_contents($file, $routes)) {
-            return "Route just added now!";
+            $generated = file_get_contents(__DIR__. '/parts/web.php.stub');
+            $routes = sprintf($generated, $this->model->route, $this->model->model);
+            if (file_put_contents($file, $routes, FILE_APPEND)) {
+                return "Route just added now!";
+            }
         }
 
         return "Add to routes/web.php:\n\n" . $generated;
