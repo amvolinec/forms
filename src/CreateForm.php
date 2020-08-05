@@ -49,6 +49,7 @@ class CreateForm extends Command
     {
         $model_name = $this->argument('model');
         $this->model = Table::with('files')->where('model', '=', $model_name)->first();
+
         if (empty($this->model)) {
 
             $this->info('The model not found in DB');
@@ -83,7 +84,10 @@ class CreateForm extends Command
             $this->info('Controller created ' . $filename);
             $this->addFile('Controller', $filename);
 
-            $this->info("Run: php artisasn migrate\nAdd to routes:");
+            $this->migrate();
+
+            $this->info($this->addRoute());
+
         }
 
     }
@@ -156,8 +160,19 @@ class CreateForm extends Command
     protected function deleteFiles()
     {
         $confirm = $this->ask('Delete existing files ? (y/n)');
+
         if ($confirm === 'y') {
+
+            $last_migration = $this->getLastMigrationName();
+
             foreach ($this->model->files as $file) {
+
+                // Rollback migration if last
+                if (basename($file->uri, '.php') == $last_migration) {
+                    $this->info("migrate:rollback {$last_migration} successful\n");
+                    Artisan::call('migrate:rollback');
+                }
+
                 if (is_file($file->uri)) {
                     unlink($file->uri);
                     $this->info('file deleted ' . $file->uri);
@@ -165,7 +180,51 @@ class CreateForm extends Command
                     $this->info('file not found ' . $file->uri);
                 }
             }
+
             $this->model->files()->delete();
+        }
+    }
+
+    protected function getLastMigrationName()
+    {
+        return DB::table('migrations')->latest('id')->pluck('migration')->first();
+    }
+
+    protected function addRoute()
+    {
+        $file = base_path('routes/web.php');
+        $routes = file_get_contents($file);
+
+        $generated = "Route::resource('{$this->model->route}', '{$this->model->model}Controller');";
+
+        if (strpos($routes, $generated) !== false) {
+            return "Route already added!";
+        }
+
+        $added = "Route::group(['middleware' => ['web', 'auth']], function () {" . "\n    " . $generated;
+
+        if (strpos($routes, "Route::group(['middleware' => ['web', 'auth']], function () {") !== false) {
+            $routes = str_replace("Route::group(['middleware' => ['web', 'auth']], function () {", $added, $routes);
+        } else {
+
+        }
+
+        if (file_put_contents($file, $routes)) {
+            return "Route just added now!";
+        }
+
+        return "Add to routes/web.php:\n\n" . $generated;
+    }
+
+    protected function migrate()
+    {
+        $confirm = $this->ask('Run migrations ? (y/n)');
+
+        if ($confirm === 'y') {
+            Artisan::call('migrate');
+            $this->info("Migrated successfully\n");
+        } else {
+            $this->info("\nRun:\n\nphp artisan migrate\n\n");
         }
     }
 }
