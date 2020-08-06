@@ -1,14 +1,15 @@
 <?php
 
-namespace Avart\Forms;
+namespace Avart\Forms\Controllers;
 
 use App\Http\Controllers\Controller;
-use Avart\Forms\Field;
-use Avart\Forms\Table;
+use Avart\Forms\Models\Field;
+use Avart\Forms\Models\Table;
+use Avart\Forms\Requests\TableStoreRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
-use Avart\Forms\Type;
+use Avart\Forms\Models\Type;
 
 class FieldsController extends Controller
 {

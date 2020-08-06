@@ -2,6 +2,7 @@
 
 namespace Avart\Forms;
 
+use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Support\ServiceProvider;
 
 class FormsServiceProvider extends ServiceProvider
@@ -10,11 +11,11 @@ class FormsServiceProvider extends ServiceProvider
      * Register services.
      *
      * @return void
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     * @throws BindingResolutionException
      */
     public function register()
     {
-        $this->app->make('Avart\Forms\FieldsController');
+        $this->app->make('Avart\Forms\Controllers\FieldsController');
         $this->loadViewsFrom(__DIR__.'/views', 'forms');
     }
 

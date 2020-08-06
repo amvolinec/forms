@@ -1,6 +1,6 @@
 <?php
 
-namespace Avart\Forms;
+namespace Avart\Forms\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -11,11 +11,11 @@ class Table extends Model
 
     public function fields()
     {
-        return $this->hasMany('Avart\Forms\Field');
+        return $this->hasMany('Avart\Forms\Models\Field');
     }
 
     public function files()
     {
-        return $this->hasMany('Avart\Forms\TableFile');
+        return $this->hasMany('Avart\Forms\Models\TableFile');
     }
 }

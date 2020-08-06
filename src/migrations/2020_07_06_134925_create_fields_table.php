@@ -69,6 +69,23 @@ class CreateFieldsTable extends Migration
                 ->references('id')->on('av_tables')
                 ->onDelete('cascade');
         });
+
+        Schema::create('av_relations', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->unsignedBigInteger('field_id')->nullable();
+            $table->unsignedBigInteger('to_field')->nullable();
+            $table->enum('type', ['belongsTo', 'belongsToMany', 'hasOne', 'hasMany']);
+            $table->string('table')->nullable();
+            $table->string('foreign_key')->nullable();
+
+            $table->foreign('field_id')
+                ->references('id')->on('av_fields')
+                ->onDelete('set null');
+
+            $table->foreign('to_field')
+                ->references('id')->on('av_fields')
+                ->onDelete('set null');
+        });
     }
 
     /**

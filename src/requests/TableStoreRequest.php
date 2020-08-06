@@ -1,6 +1,6 @@
 <?php
 
-namespace Avart\Forms;
+namespace Avart\Forms\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 

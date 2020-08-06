@@ -1,6 +1,6 @@
 <?php
 
-namespace Avart\Forms;
+namespace Avart\Forms\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -11,10 +11,10 @@ class Field extends Model
 
     public function table()
     {
-        return $this->belongsTo('Avart\Forms\Table');
+        return $this->belongsTo('Avart\Forms\Models\Table');
     }
 
     public function type(){
-        return $this->belongsTo('Avart\Forms\Type');
+        return $this->belongsTo('Avart\Forms\Models\Type');
     }
 }

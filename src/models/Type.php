@@ -1,6 +1,6 @@
 <?php
 
-namespace Avart\Forms;
+namespace Avart\Forms\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
