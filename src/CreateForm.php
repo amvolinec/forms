@@ -7,10 +7,10 @@ use Avart\Forms\Creators\MigrationCreator;
 use Avart\Forms\Creators\TableCreator;
 use Avart\Forms\Creators\ViewCreator;
 use Avart\Forms\Models\Table;
+use Exception;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
-use mysql_xdevapi\Exception;
 use SebastianBergmann\CodeCoverage\Report\PHP;
 use Avart\Forms\Models\TableFile;
 
