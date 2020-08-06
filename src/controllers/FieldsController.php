@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
 use Avart\Forms\Models\Type;
+use Illuminate\Support\Str;
 
 class FieldsController extends Controller
 {
@@ -134,6 +135,12 @@ class FieldsController extends Controller
                 $i++;
             }
         }
+    }
 
+    public function get(Request $request)
+    {
+        $route = strtolower($request->get('model'));
+        $plural = Str::plural($route);
+        return ['route' => $route, 'plural' => $plural];
     }
 }

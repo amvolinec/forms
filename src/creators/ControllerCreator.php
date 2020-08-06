@@ -19,7 +19,7 @@ class ControllerCreator
 
     public function create()
     {
-        $content = file_get_contents(__DIR__ . '/../parts/controller.tmp');
+        $content = file_get_contents(__DIR__ . '/../parts/controller.stub');
         $content = sprintf($content, $this->model, $this->table, $this->router);
 
         return $content;
