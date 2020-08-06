@@ -14,7 +14,7 @@ class CreateFieldsTable extends Migration
     public function up()
     {
 
-        Schema::create('av_tables', function (Blueprint $table) {
+        Schema::create('tables', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('description')->nullable();
@@ -28,14 +28,14 @@ class CreateFieldsTable extends Migration
             $table->timestamps();
         });
 
-        Schema::create('av_types', function (Blueprint $table) {
+        Schema::create('types', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('class')->nullable();
             $table->timestamps();
         });
 
-        Schema::create('av_fields', function (Blueprint $table) {
+        Schema::create('fields', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('table_id')->nullable();
             $table->unsignedBigInteger('type_id')->default(1);
@@ -50,15 +50,15 @@ class CreateFieldsTable extends Migration
             $table->timestamps();
 
             $table->foreign('table_id')
-                ->references('id')->on('av_tables')
+                ->references('id')->on('tables')
                 ->onDelete('cascade');
 
             $table->foreign('type_id')
-                ->references('id')->on('av_types')
+                ->references('id')->on('types')
                 ->onDelete('cascade');
         });
 
-        Schema::create('av_table_files', function (Blueprint $table) {
+        Schema::create('table_files', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('table_id')->nullable();
             $table->string('name');
@@ -66,11 +66,11 @@ class CreateFieldsTable extends Migration
             $table->timestamps();
 
             $table->foreign('table_id')
-                ->references('id')->on('av_tables')
+                ->references('id')->on('tables')
                 ->onDelete('cascade');
         });
 
-        Schema::create('av_relations', function (Blueprint $table) {
+        Schema::create('relations', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('field_id')->nullable();
             $table->unsignedBigInteger('to_field')->nullable();
@@ -79,11 +79,11 @@ class CreateFieldsTable extends Migration
             $table->string('foreign_key')->nullable();
 
             $table->foreign('field_id')
-                ->references('id')->on('av_fields')
+                ->references('id')->on('fields')
                 ->onDelete('set null');
 
             $table->foreign('to_field')
-                ->references('id')->on('av_fields')
+                ->references('id')->on('fields')
                 ->onDelete('set null');
         });
     }
@@ -95,9 +95,10 @@ class CreateFieldsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('av_table_files');
-        Schema::dropIfExists('av_fields');
-        Schema::dropIfExists('av_types');
-        Schema::dropIfExists('av_tables');
+        Schema::dropIfExists('relations');
+        Schema::dropIfExists('table_files');
+        Schema::dropIfExists('fields');
+        Schema::dropIfExists('types');
+        Schema::dropIfExists('tables');
     }
 }

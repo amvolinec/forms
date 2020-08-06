@@ -20,14 +20,14 @@ class FieldsController extends Controller
 
     public function create()
     {
-        $types = DB::table('av_types')->get();
+        $types = DB::table('types')->get();
         return view('forms::create', compact('types'));
     }
 
     public function edit($name)
     {
         $table = Table::with('fields')->where('route', '=', $name)->firstOrFail();
-        $types = DB::table('av_types')->get();
+        $types = DB::table('types')->get();
         return view('forms::create', ['types' => $types, 'table' => $table, 'fields' => $table->fields]);
     }
 
