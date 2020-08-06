@@ -1,6 +1,6 @@
 <?php
 
-Route::group(['middleware' => ['web']], function () {
+Route::group(['middleware' => ['web', 'auth']], function () {
     Route::get('av-panel/', 'Avart\Forms\FieldsController@index')->name('forms.index');
     Route::get('get-index/{table}', 'Avart\Forms\FieldsController@getIndex')->name('forms.get_index');
     Route::get('av-panel/create', 'Avart\Forms\FieldsController@create')->name('forms.create');

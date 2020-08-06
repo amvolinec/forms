@@ -78,6 +78,7 @@ class CreateFieldsTable extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists('table_files');
         Schema::dropIfExists('fields');
         Schema::dropIfExists('types');
         Schema::dropIfExists('tables');
