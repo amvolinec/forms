@@ -47,4 +47,4 @@ Run
 
 Create a form:
 
-`form:create Model`t 
+`form:create Model`

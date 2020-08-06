@@ -14,7 +14,7 @@ class CreateFieldsTable extends Migration
     public function up()
     {
 
-        Schema::create('tables', function (Blueprint $table) {
+        Schema::create('av_tables', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('description')->nullable();
@@ -28,14 +28,14 @@ class CreateFieldsTable extends Migration
             $table->timestamps();
         });
 
-        Schema::create('types', function (Blueprint $table) {
+        Schema::create('av_types', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('class')->nullable();
             $table->timestamps();
         });
 
-        Schema::create('fields', function (Blueprint $table) {
+        Schema::create('av_fields', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('table_id')->nullable();
             $table->unsignedBigInteger('type_id')->default(1);
@@ -50,15 +50,15 @@ class CreateFieldsTable extends Migration
             $table->timestamps();
 
             $table->foreign('table_id')
-                ->references('id')->on('tables')
+                ->references('id')->on('av_tables')
                 ->onDelete('cascade');
 
             $table->foreign('type_id')
-                ->references('id')->on('types')
+                ->references('id')->on('av_types')
                 ->onDelete('cascade');
         });
 
-        Schema::create('table_files', function (Blueprint $table) {
+        Schema::create('av_table_files', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('table_id')->nullable();
             $table->string('name');
@@ -66,7 +66,7 @@ class CreateFieldsTable extends Migration
             $table->timestamps();
 
             $table->foreign('table_id')
-                ->references('id')->on('tables')
+                ->references('id')->on('av_tables')
                 ->onDelete('cascade');
         });
     }
@@ -78,9 +78,9 @@ class CreateFieldsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('table_files');
-        Schema::dropIfExists('fields');
-        Schema::dropIfExists('types');
-        Schema::dropIfExists('tables');
+        Schema::dropIfExists('av_table_files');
+        Schema::dropIfExists('av_fields');
+        Schema::dropIfExists('av_types');
+        Schema::dropIfExists('av_tables');
     }
 }
