@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Avart\Forms;
+namespace Avart\Forms\Creators;
 
 class ViewCreator
 {
@@ -20,7 +20,7 @@ class ViewCreator
 
     public function create()
     {
-        $content = file_get_contents(__DIR__ . '/parts/create.tmp');
+        $content = file_get_contents(__DIR__ . '/../parts/create.tmp');
         $content = sprintf($content, $this->model, $this->route, $this->getInner());
         return $content;
     }
@@ -29,10 +29,10 @@ class ViewCreator
     {
         foreach ($this->fields as $field) {
             if($field->type->class === 'select'){
-                $content = file_get_contents(__DIR__ . "/parts/form-group-{$field->type->class}.blade.php");
+                $content = file_get_contents(__DIR__ . "/../parts/form-group-{$field->type->class}.blade.php");
                 $this->inner .= sprintf($content, $field->name, $field->title, $this->getAdditional($field), $this->route, substr($this->name, 0, (strlen($this->name) - 3)));
             } else {
-                $content = file_get_contents(__DIR__ . "/parts/form-group-{$field->type->class}.blade.php");
+                $content = file_get_contents(__DIR__ . "/../parts/form-group-{$field->type->class}.blade.php");
                 $this->inner .= sprintf($content, $field->name, $field->title, $this->getAdditional($field), $this->route);
             }
         }

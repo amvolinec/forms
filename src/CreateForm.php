@@ -2,11 +2,17 @@
 
 namespace Avart\Forms;
 
+use Avart\Forms\Creators\ControllerCreator;
+use Avart\Forms\Creators\MigrationCreator;
+use Avart\Forms\Creators\TableCreator;
+use Avart\Forms\Creators\ViewCreator;
+use Avart\Forms\Models\Table;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
+use mysql_xdevapi\Exception;
 use SebastianBergmann\CodeCoverage\Report\PHP;
-use Avart\Forms\TableFile;
+use Avart\Forms\Models\TableFile;
 
 class CreateForm extends Command
 {
@@ -58,7 +64,7 @@ class CreateForm extends Command
 
         } else {
 
-            if ($this->model->files->count > 0) {
+            if ($this->model->files->count() > 0) {
                 $this->deleteFiles();
             }
 
@@ -208,14 +214,25 @@ class CreateForm extends Command
 
         if (strpos($routes, "Route::group(['middleware' => ['web', 'auth']], function () {") !== false) {
             $routes = str_replace("Route::group(['middleware' => ['web', 'auth']], function () {", $added, $routes);
-            if (file_put_contents($file, $routes)) {
-                return "Route just added now!";
+
+            try {
+                if (file_put_contents($file, $routes)) {
+                    return "Route just added now!";
+                }
+            } catch(Exception $exception) {
+                return $exception->getMessage() .  "\n\nAdd to routes/web.php:\n\n" . $generated;
             }
+
         } else {
             $generated = file_get_contents(__DIR__ . '/parts/web.php.stub');
             $routes = sprintf($generated, $this->model->route, $this->model->model);
-            if (file_put_contents($file, $routes, FILE_APPEND)) {
-                return "Route just added now!";
+
+            try {
+                if (file_put_contents($file, $routes, FILE_APPEND)) {
+                    return "Route just added now!";
+                }
+            } catch(Exception $exception) {
+                return $exception->getMessage() .  "\n\nAdd to routes/web.php:\n\n" . $generated;
             }
         }
 

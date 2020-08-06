@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Avart\Forms;
+namespace Avart\Forms\Creators;
 
 
 use SebastianBergmann\CodeCoverage\Report\PHP;
@@ -46,7 +46,7 @@ class TableCreator
 
     public function get()
     {
-        $content = file_get_contents(__DIR__ . '/parts/index.tmp');
+        $content = file_get_contents(__DIR__ . '/../parts/index.tmp');
         $content = sprintf($content, $this->route, 'Name', $this->getHeader(), $this->getBody(), $this->table);
         return $content;
     }

@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Avart\Forms;
+namespace Avart\Forms\Creators;
 
 class ControllerCreator
 {
@@ -19,7 +19,7 @@ class ControllerCreator
 
     public function create()
     {
-        $content = file_get_contents(__DIR__ . '/parts/controller.tmp');
+        $content = file_get_contents(__DIR__ . '/../parts/controller.tmp');
         $content = sprintf($content, $this->model, $this->table, $this->router);
 
         return $content;
