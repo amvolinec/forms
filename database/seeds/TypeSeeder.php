@@ -25,6 +25,7 @@ class TypeSeeder extends Seeder
             ['name' => 'char', 'class' => 'text'],
             ['name' => 'date', 'class' => 'date'],
             ['name' => 'decimal', 'class' => 'number'],
+            ['name' => 'decimal', 'class' => 'decimal'],
             ['name' => 'float', 'class' => 'number'],
             ['name' => 'json', 'class' => 'textarea'],
             ['name' => 'jsonb', 'class' => 'textarea'],

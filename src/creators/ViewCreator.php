@@ -28,12 +28,20 @@ class ViewCreator
     protected function getInner()
     {
         foreach ($this->fields as $field) {
-            if($field->type->class === 'select'){
-                $content = file_get_contents(__DIR__ . "/../parts/form-group-{$field->type->class}.blade.php");
-                $this->inner .= sprintf($content, $field->name, $field->title, $this->getAdditional($field), $this->route, substr($this->name, 0, (strlen($this->name) - 3)));
+            if ($field->type->class === 'select') {
+                try {
+                    $content = file_get_contents(__DIR__ . "/../parts/form-group-{$field->type->class}.blade.php");
+                    $this->inner .= sprintf($content, $field->name, $field->title, $this->getAdditional($field), $this->route, substr($field->name, 0, (strlen($field->name) - 3)));
+                } catch (\Exception $exception) {
+                    die($exception->getMessage() . "\n" . $field->type->class);
+                }
             } else {
-                $content = file_get_contents(__DIR__ . "/../parts/form-group-{$field->type->class}.blade.php");
-                $this->inner .= sprintf($content, $field->name, $field->title, $this->getAdditional($field), $this->route);
+                try {
+                    $content = file_get_contents(__DIR__ . "/../parts/form-group-{$field->type->class}.blade.php");
+                    $this->inner .= sprintf($content, $field->name, $field->title, $this->getAdditional($field), $this->route);
+                } catch (\Exception $exception) {
+                    die($exception->getMessage() . "\n" . $field->type->class);
+                }
             }
         }
         return $this->inner;
