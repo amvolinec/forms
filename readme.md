@@ -47,7 +47,19 @@ Run
 
 `php artisan migrate:fresh --seed`
 
+Install the font awesome:
 
-Create a form:
+`npm install --save @fortawesome/fontawesome-free`
+
+Add to the app.scss file following lines:
+
+    @import '~@fortawesome/fontawesome-free/scss/fontawesome';
+    @import '~@fortawesome/fontawesome-free/scss/regular';
+    @import '~@fortawesome/fontawesome-free/scss/solid';
+    @import '~@fortawesome/fontawesome-free/scss/brands';
+
+`npm run dev`
+
+To create a form from model `Model`:
 
 `form:create Model`

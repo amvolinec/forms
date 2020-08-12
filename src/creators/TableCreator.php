@@ -4,6 +4,7 @@
 namespace Avart\Forms\Creators;
 
 
+use Illuminate\Support\Str;
 use SebastianBergmann\CodeCoverage\Report\PHP;
 
 class TableCreator
@@ -47,7 +48,12 @@ class TableCreator
     public function get()
     {
         $content = file_get_contents(__DIR__ . '/../parts/index.tmp');
-        $content = sprintf($content, $this->route, 'Name', $this->getHeader(), $this->getBody(), $this->table);
+        $content = sprintf($content, $this->route, $this->getPluralName(), $this->getHeader(), $this->getBody(), $this->table);
         return $content;
+    }
+
+    protected function getPluralName(){
+        $plural = Str::plural($this->route);
+        return Str::ucfirst($plural);
     }
 }

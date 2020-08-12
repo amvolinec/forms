@@ -1,20 +1,25 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
+    <div class="container-fluid">
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header">{{ __('%2$s') }}</div>
-
+                    <div class="card-header">
+                        <div class="d-inline-block" style="vertical-align: top;">
+                            <form action="{{ route('%1$s.create') }}">
+                                @method('post')
+                                @csrf
+                                <button class="btn btn-success">+</button>
+                            </form>
+                        </div>
+                        <div class="d-inline-block" style="vertical-align: top; padding: 6px;">
+                            <h4 >{{ __('%2$s') }}</h4>
+                        </div>
+                    </div>
                     <div class="card-body">
-
-                        <form action="{{ route('%1$s.create') }}">
-                            <button class="btn btn-success mb-3">+</button>
-                        </form>
-
-                        <table class="table table-sm">
-                            <thead class="thead-dark">
+                        <table class="table table-sm table-striped">
+                            <thead class="thead">
                             <tr>
                                 <th scope="col">#</th>
                                 %3$s
@@ -27,15 +32,14 @@
                                     <th scope="row">{{ $%1$s->id  }}</th>
                                     %4$s
                                     <td>
-                                        <a class="btn btn-sm btn-success float-right" style="margin: 0 8px;"
-                                           href="{{ route('%1$s.edit', $%1$s->id) }}">{{ __('Edit') }}</a>
                                         <form class="float-right" action="{{ route('%1$s.destroy', $%1$s->id) }}"
                                               method="post" onsubmit="return confirm('Do you really want to delete?');">
                                             @method('delete')
                                             @csrf
-                                            <button class="btn btn-sm btn-danger" type="submit">{{ __('Delete') }}</button>
+                                            <button class="btn btn-sm btn-outline-danger" type="submit"><i class="fas fa-trash"></i></button>
                                         </form>
-
+                                        <a class="btn btn-sm btn-outline-success float-right" style="margin: 0 8px;"
+                                           href="{{ route('%1$s.edit', $%1$s->id) }}"><i class="fas fa-edit"></i></a>
                                     </td>
                                 </tr>
                             @endforeach

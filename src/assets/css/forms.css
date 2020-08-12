@@ -25,3 +25,11 @@
 .side-menu li {
     line-height: 2rem;
 }
+
+.table {
+    color: #535353;
+}
+
+.btn {
+    border: none;
+}
