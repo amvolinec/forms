@@ -30,7 +30,7 @@ class FormsServiceProvider extends ServiceProvider
         $this->loadMigrationsFrom(__DIR__.'/migrations');
         if ($this->app->runningInConsole()) {
             $this->commands([
-                CreateForm::class,
+                MakeForm::class,
             ]);
         }
         $this->publishes([

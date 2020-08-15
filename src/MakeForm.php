@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\DB;
 use SebastianBergmann\CodeCoverage\Report\PHP;
 use Avart\Forms\Models\TableFile;
 
-class CreateForm extends Command
+class MakeForm extends Command
 {
 
     protected $model;
@@ -26,7 +26,7 @@ class CreateForm extends Command
      *
      * @var string
      */
-    protected $signature = 'form:create {model : The model name}';
+    protected $signature = 'make:form {model : The model name}';
 
     /**
      * The console command description.
@@ -68,29 +68,41 @@ class CreateForm extends Command
                 $this->deleteFiles();
             }
 
-            Artisan::call("make:model {$this->model->model}");
-            $path = app_path("{$this->model->model}.php");
-            $this->info('Model created ' . $path);
+            // Create Model
+            if ($this->model->create_model === 1) {
+                Artisan::call("make:model {$this->model->model}");
+                $path = app_path("{$this->model->model}.php");
+                $this->info('Model created ' . $path);
 
-            $this->updateModel($path);
-            $this->info('Model updated ' . $path);
-            $this->addFile('Model', $path);
+                $this->updateModel($path);
+                $this->info('Model updated ' . $path);
+                $this->addFile('Model', $path);
+            }
 
-            $filename = $this->createView();
-            $this->info('Index View created ' . $filename);
-            $this->addFile('Index view', $filename);
+            // Create Views
+            if ($this->model->create_views === 1) {
+                $filename = $this->createView();
+                $this->info('Index View created ' . $filename);
+                $this->addFile('Index view', $filename);
 
-            $filename = $this->createViewCreate();
-            $this->info('Create View created ' . $filename);
-            $this->addFile('Crete View', $filename);
+                $filename = $this->createViewCreate();
+                $this->info('Create View created ' . $filename);
+                $this->addFile('Crete View', $filename);
+            }
 
-            $filename = $this->createMigration();
-            $this->info('Migration created ' . $filename);
-            $this->addFile('Migration', $filename);
+            // Create Migration
+            if ($this->model->create_migration === 1) {
+                $filename = $this->createMigration();
+                $this->info('Migration created ' . $filename);
+                $this->addFile('Migration', $filename);
+            }
 
-            $filename = $this->createController();
-            $this->info('Controller created ' . $filename);
-            $this->addFile('Controller', $filename);
+            // Create Controller
+            if ($this->model->create_controller === 1) {
+                $filename = $this->createController();
+                $this->info('Controller created ' . $filename);
+                $this->addFile('Controller', $filename);
+            }
 
             $this->migrate();
 
@@ -219,8 +231,8 @@ class CreateForm extends Command
                 if (file_put_contents($file, $routes)) {
                     return "Route just added now!";
                 }
-            } catch(Exception $exception) {
-                return $exception->getMessage() .  "\n\nAdd to routes/web.php:\n\n" . $generated;
+            } catch (Exception $exception) {
+                return $exception->getMessage() . "\n\nAdd to routes/web.php:\n\n" . $generated;
             }
 
         } else {
@@ -231,8 +243,8 @@ class CreateForm extends Command
                 if (file_put_contents($file, $routes, FILE_APPEND)) {
                     return "Route just added now!";
                 }
-            } catch(Exception $exception) {
-                return $exception->getMessage() .  "\n\nAdd to routes/web.php:\n\n" . $generated;
+            } catch (Exception $exception) {
+                return $exception->getMessage() . "\n\nAdd to routes/web.php:\n\n" . $generated;
             }
         }
 
