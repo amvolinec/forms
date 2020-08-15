@@ -24,7 +24,7 @@
 <body>
 <div id="app">
     <div class="sidebar">
-        @include('menus.dashboard')
+{{--        @include('menus.dashboard')--}}
     </div>
     <div class="container-fluid main-container with-sidebar mt-0">
         <div class="row">
