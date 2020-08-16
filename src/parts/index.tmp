@@ -16,6 +16,7 @@
                         <div class="d-inline-block" style="vertical-align: top; padding: 6px;">
                             <h4 >{{ __('%2$s') }}</h4>
                         </div>
+                        <find route="%1$s" fields="%6$s" search="{{ $search ?? '' }}"></find>
                     </div>
                     <div class="card-body">
                         <table class="table table-sm table-striped">

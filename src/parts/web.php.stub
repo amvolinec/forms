@@ -1,3 +1,5 @@
 Route::group(['middleware' => ['web', 'auth']], function () {
-    Route::resource('%s', '%sController');
+    Route::resource('%1$s', '%2$sController');
+    Route::post('%1$s/find/', '%2$sController@find')->name('%1$s.find');
+    Route::get('%1$s/find/{string}', '%2$sController@find')->name('%1$s.find.get');
 });

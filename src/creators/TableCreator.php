@@ -15,12 +15,14 @@ class TableCreator
     protected $tHeadLine = '<th scope="col">{{ __("%s") }}</th>' . "\n";
     protected $tBodyLine = '<td>{{ $%1$s->%2$s }}</td>' . PHP_EOL;
     protected $html;
+    private $description;
 
-    public function __construct($table, $route, $fields)
+    public function __construct($table, $route, $fields, $description)
     {
         $this->route = $route;
         $this->fields = $fields;
         $this->table = $table;
+        $this->description = $description;
     }
 
     public function getHeader()
@@ -48,7 +50,7 @@ class TableCreator
     public function get()
     {
         $content = file_get_contents(__DIR__ . '/../parts/index.tmp');
-        $content = sprintf($content, $this->route, $this->getPluralName(), $this->getHeader(), $this->getBody(), $this->table);
+        $content = sprintf($content, $this->route, $this->getPluralName(), $this->getHeader(), $this->getBody(), $this->table, $this->description);
         return $content;
     }
 

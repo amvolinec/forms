@@ -26,7 +26,7 @@
                             @csrf
 
                             <div class="row">
-                                <div class="form-group col-md-4">
+                                <div class="form-group col-md-3">
                                     <label for="model">{{ __("Model") }}</label>
                                     <input id="model" type="text" name="model"
                                            class="form-control @error('model') is-invalid @enderror"
@@ -38,7 +38,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="form-group col-md-4">
+                                <div class="form-group col-md-3">
                                     <label for="name">{{ __("Table name") }}</label>
                                     <input id="name" type="text" name="name"
                                            class="form-control @error('name') is-invalid @enderror"
@@ -51,12 +51,24 @@
                                     @enderror
                                 </div>
 
-                                <div class="form-group col-md-4">
+                                <div class="form-group col-md-3">
                                     <label for="route">{{ __("Route") }}</label>
                                     <input id="route" type="text" name="route"
                                            class="form-control @error('route') is-invalid @enderror"
                                            value="{{ $table->route ?? old('route') }}" required>
                                     @error('route')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+
+                                <div class="form-group col-md-3">
+                                    <label for="description">{{ __("Searchable fields (coma separated)") }}</label>
+                                    <input id="description" type="text" name="description"
+                                           class="form-control @error('description') is-invalid @enderror"
+                                           value="{{ $table->description ?? old('description') }}" required>
+                                    @error('description')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>

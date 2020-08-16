@@ -45,12 +45,12 @@ class %1$sController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  %1$s  $%3$s
-     * @return RedirectResponse
+     * @param  $id
+     * @return View
      */
-    public function show(%1$s $%3$s)
+    public function show($id)
     {
-        return redirect()->route('%3$s.index');
+        return view('%3$s.index', ['%2$s' => %1$s::where('id', $id)->paginate()]);
     }
 
     /**
@@ -87,5 +87,20 @@ class %1$sController extends Controller
     {
         $%3$s->delete();
         return redirect()->route('%3$s.index');
+    }
+
+    public function find(Request $request, $search = false)
+    {
+        $string = $search ? $search : $request->get('string');
+
+        $data = %1$s::where('name', 'like', '%%' . $string . '%%')
+            // ->orWhere('title', 'like', '%%' . $string . '%%')
+            ;
+
+        if ($search !== false && !empty($search)) {
+            return view('%3$s.index', ['%2$s' => $data->paginate(20), 'search' => $string]);
+        } else {
+            return $data->take(10)->get();
+        }
     }
 }

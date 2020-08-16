@@ -65,6 +65,7 @@ class FieldsController extends Controller
         $table->name = $request->get('name');
         $table->route = $request->get('route');
         $table->model = $request->get('model');
+        $table->description = $request->get('description');
         $table->create_model = $request->has('create_model') ? 1 : 0;
         $table->create_migration = $request->has('create_migration') ? 1 : 0;
         $table->create_controller = $request->has('create_controller') ? 1 : 0;

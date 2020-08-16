@@ -136,7 +136,7 @@ class MakeForm extends Command
             }
         }
 
-        $creator = new TableCreator($this->model->name, $this->model->route, $this->model->fields);
+        $creator = new TableCreator($this->model->name, $this->model->route, $this->model->fields, $this->model->description);
 
         $fileName = $dir . '/index.blade.php';
         file_put_contents($fileName, $creator->get());
@@ -217,12 +217,14 @@ class MakeForm extends Command
         $routes = file_get_contents($file);
 
         $generated = "Route::resource('{$this->model->route}', '{$this->model->model}Controller');";
+        $search[0] = "Route::post('{$this->model->route}/find/', '{$this->model->model}Controller@find')->name('{$this->model->route}.find');";
+        $search[1] = "Route::get('{$this->model->route}/find/{string}', '{$this->model->model}Controller@find')->name('{$this->model->route}.find.get');";
 
         if (strpos($routes, $generated) !== false) {
             return "Route already added!";
         }
 
-        $added = "Route::group(['middleware' => ['web', 'auth']], function () {" . "\n    " . $generated;
+        $added = "Route::group(['middleware' => ['web', 'auth']], function () {" . "\n    " . $generated . "\n    " . $search[0] . "\n    ". $search[1];
 
         if (strpos($routes, "Route::group(['middleware' => ['web', 'auth']], function () {") !== false) {
             $routes = str_replace("Route::group(['middleware' => ['web', 'auth']], function () {", $added, $routes);
