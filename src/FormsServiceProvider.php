@@ -40,5 +40,9 @@ class FormsServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__.'/../database/seeds' => database_path('seeds'),
         ], 'seeds');
+
+        $this->publishes([
+            __DIR__.'/views/menus' => base_path('resources/views/menus'),
+        ], 'menus');
     }
 }
