@@ -45,7 +45,7 @@
                             @endforeach
                             </tbody>
                         </table>
-
+                        {{ $%5$s->links() }}
                     </div>
                 </div>
             </div>

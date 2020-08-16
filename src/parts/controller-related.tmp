@@ -16,7 +16,7 @@ class %1$sController extends Controller
      */
     public function index()
     {
-        $%2$s = %1$s::all();
+        $%2$s = %1$s::paginate(20);
         return view('%3$s.index', ['%2$s' => $%2$s]);
     }
 
