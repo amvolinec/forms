@@ -27,7 +27,9 @@ class FormsServiceProvider extends ServiceProvider
     public function boot()
     {
         include __DIR__.'/routes.php';
+
         $this->loadMigrationsFrom(__DIR__.'/migrations');
+
         if ($this->app->runningInConsole()) {
             $this->commands([
                 MakeForm::class,
@@ -44,5 +46,9 @@ class FormsServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__.'/views/menus' => base_path('resources/views/menus'),
         ], 'menus');
+
+        $this->publishes([
+            __DIR__.'/../resources' => base_path('resources'),
+        ], 'find');
     }
 }
