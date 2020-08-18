@@ -1,4 +1,4 @@
-.wrapper {
+.popup-wrapper {
     top: 0;
     left: 0;
     position: fixed;
@@ -41,7 +41,9 @@
     width: inherit;
     height: auto;
     z-index: 1;
-    box-shadow: 3px 3px 6px rgba(100,100,100, 0.5);
+    box-shadow: 3px 3px 6px rgba(100, 100, 100, 0.5);
+    max-height: 394px;
+    overflow: auto;
 }
 
 .dropdown-select ul {
