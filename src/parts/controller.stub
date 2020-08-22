@@ -91,7 +91,7 @@ class %1$sController extends Controller
 
     public function find(Request $request, $search = false)
     {
-        $string = $search ? $search : $request->get('string');
+        $string = $search ?? $request->get('string');
 
         $data = %1$s::where('name', 'like', '%%' . $string . '%%')
             // ->orWhere('title', 'like', '%%' . $string . '%%')

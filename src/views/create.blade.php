@@ -161,7 +161,7 @@
                             <div class="row">
                                 <div class="form-group col-md-12">
                                     <button id="store-fields" type="button"
-                                            class="btn btn-success float-right">{{ __('Save') }}</button>
+                                            class="btn btn-success float-right"><i class="far fa-save"></i> {{ __('Save') }}</button>
                                 </div>
                             </div>
 
