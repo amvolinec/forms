@@ -3,6 +3,9 @@
 
 namespace Avart\Forms\Creators;
 
+use Avart\Forms\Models\Table;
+use Illuminate\Database\Eloquent\Builder;
+
 class ControllerCreator
 {
     protected $model;
@@ -19,10 +22,24 @@ class ControllerCreator
 
     public function create()
     {
-        $content = file_get_contents(__DIR__ . '/../parts/controller.stub');
+        if($this->isFileUpload()){
+            $content = file_get_contents(__DIR__ . '/../parts/controller-fileupload.stub');
+        } else {
+            $content = file_get_contents(__DIR__ . '/../parts/controller.stub');
+        }
+
         $content = sprintf($content, $this->model, $this->table, $this->router);
 
         return $content;
+    }
+
+    protected function isFileUpload(){
+        $files = Table::with('fields')
+            ->where('name','=', $this->table)
+            ->whereHas('fields', function (Builder $query) {
+                $query->where('name','=', 'file_uri');
+            })->count();
+        return $files > 0;
     }
 
 }

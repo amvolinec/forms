@@ -1,0 +1,140 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\%1$s;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\View\View;
+use Illuminate\Support\Facades\Storage;
+
+class %1$sController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     *
+     * @return View
+     */
+    public function index()
+    {
+        $%2$s = %1$s::paginate(20);
+        return view('%3$s.index', ['%2$s' => $%2$s]);
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return View
+     */
+    public function create()
+    {
+        return view('%3$s.create');
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  Request  $request
+     * @return RedirectResponse
+     */
+    public function store(Request $request)
+    {
+
+        $path = null;
+        $file_name = '';
+
+        if ($request->hasFile('file')) {
+            $file_name = $request->file('file')->getClientOriginalName();
+            $path = Storage::disk('uploads')->putFile('images', $request->file('file'));
+
+        }
+
+        $%3$s = %1$s::create($request->except('_method', '_token'));
+
+        if (!empty($path)) {
+            $%3$s->file_name = $file_name;
+            $%3$s->file_uri = $path;
+            $%3$s->save();
+        }
+
+        return redirect()->route('%3$s.index');
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  $id
+     * @return View
+     */
+    public function show($id)
+    {
+        return view('%3$s.index', ['%2$s' => %1$s::where('id', $id)->paginate()]);
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  %1$s  $%3$s
+     * @return View
+     */
+    public function edit(%1$s $%3$s)
+    {
+        return view ('%3$s.create' , ['%3$s' => $%3$s]);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  Request  $request
+     * @param  %1$s  $%3$s
+     * @return RedirectResponse
+     */
+    public function update(Request $request, %1$s $%3$s)
+    {
+        $%3$s->fill($request->except('_method', '_token', 'file'));
+
+        $path = null;
+        $file_name = '';
+
+        if ($request->hasFile('file')) {
+            $file_name = $request->file('file')->getClientOriginalName();
+            $path = Storage::disk('uploads')->putFile('images', $request->file('file'));
+        }
+
+        if (!empty($path)) {
+            $%3$s->file_name = $file_name;
+            $%3$s->file_uri = $path;
+        }
+
+        $%3$s->save();
+
+        return redirect()->route('%3$s.index');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  %1$s  $%3$s
+     * @return RedirectResponse
+     */
+    public function destroy(%1$s $%3$s)
+    {
+        $%3$s->delete();
+        return redirect()->route('%3$s.index');
+    }
+
+    public function find(Request $request, $search = false)
+    {
+        $string = $search ?? $request->get('string');
+
+        $data = %1$s::where('name', 'like', '%%' . $string . '%%')
+            // ->orWhere('title', 'like', '%%' . $string . '%%')
+            ;
+
+        if ($search !== false && !empty($search)) {
+            return view('%3$s.index', ['%2$s' => $data->paginate(20), 'search' => $string]);
+        } else {
+            return $data->take(10)->get();
+        }
+    }
+}

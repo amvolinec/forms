@@ -32,7 +32,7 @@ class TypeSeeder extends Seeder
             ['name' => 'longText', 'class' => 'textarea'],
             ['name' => 'smallInteger', 'class' => 'number'],
             ['name' => 'softDeletes', 'class' => 'datetime'],
-            ['name' => 'time', 'class' => 'string']
+            ['name' => 'string', 'class' => 'file'],
         ];
         DB::table('types')->insert($types);
     }
