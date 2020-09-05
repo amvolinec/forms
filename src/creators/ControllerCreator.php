@@ -33,7 +33,7 @@ class ControllerCreator
         return $content;
     }
 
-    protected function isFileUpload(){
+    public function isFileUpload(){
         $files = Table::with('fields')
             ->where('name','=', $this->table)
             ->whereHas('fields', function (Builder $query) {

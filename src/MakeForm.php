@@ -162,7 +162,7 @@ class MakeForm extends Command
     protected function createViewCreate()
     {
         $fileName = $this->path . '/resources/views/' . $this->model->route . '/create.blade.php';
-        $creator = new ViewCreator($this->model->model, $this->model->route, $this->model->fields);
+        $creator = new ViewCreator($this->model->model, $this->model->route, $this->model->fields, $this->model->name);
         file_put_contents($fileName, $creator->create());
         return $fileName;
     }

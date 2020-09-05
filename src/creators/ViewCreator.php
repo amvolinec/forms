@@ -3,6 +3,9 @@
 
 namespace Avart\Forms\Creators;
 
+use Avart\Forms\Models\Table;
+use Illuminate\Database\Eloquent\Builder;
+
 class ViewCreator
 {
     protected $model;
@@ -11,11 +14,12 @@ class ViewCreator
     protected $fields;
     protected $inner = '';
 
-    public function __construct($model, $route, $fields)
+    public function __construct($model, $route, $fields, $table)
     {
         $this->model = $model;
         $this->route = $route;
         $this->fields = $fields;
+        $this->table = $table;
     }
 
     public function create()
@@ -53,5 +57,14 @@ class ViewCreator
             return ' checked';
         }
         return '';
+    }
+
+    public function isFileUpload(){
+        $files = Table::with('fields')
+            ->where('name','=', $this->table)
+            ->whereHas('fields', function (Builder $query) {
+                $query->where('name','=', 'file_uri');
+            })->count();
+        return $files > 0;
     }
 }

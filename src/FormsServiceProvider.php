@@ -50,5 +50,9 @@ class FormsServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__.'/../resources' => base_path('resources'),
         ], 'find');
+
+        $this->publishes([
+            __DIR__.'/views/layouts' => base_path('resources/views/layouts'),
+        ], 'view');
     }
 }
