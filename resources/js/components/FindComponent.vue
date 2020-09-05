@@ -1,7 +1,7 @@
 <template>
-    <div class="d-inline-block mt-2 ml-2">
+    <div class="d-inline-block mt-1 ml-2">
         <div class="d-inline-block drop-find">
-            <input class="d-inline-block" id="find" type="text" v-model="string" @keyup="findString">
+            <input class="d-inline-block form-control form-control-sm" id="find" type="text" v-model="string" @keyup="findString">
             <div class="dropdown-select" v-if="showDrop">
                 <ul v-for="item in items">
                     <li v-bind:data-id="item.id" @click="setItem(item)">
