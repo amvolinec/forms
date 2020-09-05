@@ -69,3 +69,7 @@ Please register find component in to the `resources/js/app.js`
 To create a form from model `Model`:
 
 `form:create Model`
+
+If you want publish only find component:
+
+    php artisan vendor:publish --tag=find --force 
