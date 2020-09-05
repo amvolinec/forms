@@ -24,7 +24,12 @@ class ViewCreator
 
     public function create()
     {
-        $content = file_get_contents(__DIR__ . '/../parts/create.tmp');
+        if($this->isFileUpload()){
+            $content = file_get_contents(__DIR__ . '/../parts/create-fileupload.tmp');
+        } else {
+            $content = file_get_contents(__DIR__ . '/../parts/create.tmp');
+        }
+
         $content = sprintf($content, $this->model, $this->route, $this->getInner());
         return $content;
     }
