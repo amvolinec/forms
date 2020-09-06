@@ -1,4 +1,4 @@
-<div class="row" id="form-inner">
+<div class="row form-builder">
     <input id="field-id" type="hidden" name="ids[]" class="form-control" value="{{ $field->id }}">
 
     <div class="form-group col-md-3">
