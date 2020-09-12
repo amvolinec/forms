@@ -108,6 +108,7 @@ class FieldsController extends Controller
         $nullable = $request->get('nullable');
         $fillable = $request->get('fillable');
         $inlist = $request->get('inlist');
+        $settings = $request->get('settings');
 
         if (!empty($names)) {
             $i = 0;
@@ -117,10 +118,11 @@ class FieldsController extends Controller
                     'name' => $name,
                     'title' => $titles[$i],
                     'type_id' => $types[$i],
-                    'default' => !empty($defaults[$i]) ? $defaults[$i] : null,
+                    'default' => !empty($defaults[$i]) ? trim($defaults[$i]) : null,
                     'nullable' => isset($nullable[$i]) ? 1 : 0,
                     'fillable' => isset($fillable[$i]) ? 1 : 0,
                     'inlist' => isset($inlist[$i]) ? 1 : 0,
+                    'settings' => !empty($settings[$i]) ? trim($settings[$i]) : 0,
                 ];
 
                 if (isset($ids[$i])) {
@@ -138,9 +140,9 @@ class FieldsController extends Controller
         }
     }
 
-    public function get(Request $request)
+    public function get($model)
     {
-        $route = strtolower($request->get('model'));
+        $route = strtolower($model);
         $plural = Str::plural($route);
         return ['route' => $route, 'plural' => $plural];
     }

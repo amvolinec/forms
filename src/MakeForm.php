@@ -116,14 +116,20 @@ class MakeForm extends Command
     {
         $str = [];
         $fields = $this->model->fields;
+        $belongs = "";
+
         foreach ($fields as $field) {
             if ($field->fillable === 1) {
                 array_push($str, '"' . $field->name . '"');
             }
+            if($field->has_foreign){
+                $content = file_get_contents(__DIR__ . '/parts/belongsTo.stub');
+                $belongs .= "\n\n" . sprintf($content, $field->prop['fieldName'], $field->prop['belongsTo']);
+            }
         }
         $content = file_get_contents($path);
         $fillable = sprintf($this->fillable, implode(', ', $str));
-        $content = str_replace('//', ($fillable . "\n\n\t//"), $content);
+        $content = str_replace('//', ($fillable . $belongs . "\n\t//"), $content);
         file_put_contents($path, $content);
     }
 

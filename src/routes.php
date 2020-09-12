@@ -7,7 +7,7 @@ Route::group(['middleware' => ['web', 'auth']], function () {
     Route::post('av-panel/store', 'Avart\Forms\Controllers\FieldsController@store')->name('forms.store');
     Route::get('av-panel/{route}/edit', 'Avart\Forms\Controllers\FieldsController@edit')->name('forms.edit');
     Route::put('av-panel/{route}/update', 'Avart\Forms\Controllers\FieldsController@update')->name('forms.update');
-    Route::post('av-panel/get-plural', 'Avart\Forms\Controllers\FieldsController@get')->name('forms.get');
+    Route::get('av-panel/get-plural/{model}', 'Avart\Forms\Controllers\FieldsController@get')->name('forms.get');
 });
 
 

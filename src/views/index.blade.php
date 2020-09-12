@@ -19,15 +19,13 @@
                         <div class="m-3">
                             <a class="btn btn-sm btn-success" href="{{ route('forms.create') }}">{{ __('Create') }}</a>
                         </div>
-
-                        @forelse($tables AS $row)
-                            <div class="m-3">
+                        <div class="m-3">
+                            @forelse($tables AS $row)
                                 <a href="{{ route('forms.edit', $row->route) }}">{{ $row->name }}</a>
-                            </div>
-                        @empty
-                            <p>No tables</p>
-                        @endforelse
-
+                            @empty
+                                <p>No tables</p>
+                            @endforelse
+                        </div>
                     </div>
                 </div>
             </div>

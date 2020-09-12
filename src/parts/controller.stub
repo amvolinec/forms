@@ -27,7 +27,7 @@ class %1$sController extends Controller
      */
     public function create()
     {
-        return view('%3$s.create');
+        return view('%3$s.create'%4$s);
     }
 
     /**
@@ -50,7 +50,7 @@ class %1$sController extends Controller
      */
     public function show($id)
     {
-        return view('%3$s.index', ['%2$s' => %1$s::where('id', $id)->paginate()]);
+        return view('%3$s.index', ['%2$s' => %1$s::where('id', $id)->paginate()%5$s]);
     }
 
     /**
@@ -61,7 +61,7 @@ class %1$sController extends Controller
      */
     public function edit(%1$s $%3$s)
     {
-        return view ('%3$s.create' , ['%3$s' => $%3$s]);
+        return view ('%3$s.create' , ['%3$s' => $%3$s%5$s]);
     }
 
     /**

@@ -8,8 +8,6 @@ class MigrationCreator
     protected $fields;
     protected $table;
     protected $inner;
-    protected $line = '$table->%2$s(\'%1$s\')';
-    protected $strings = ['string', 'text', 'char', 'longText', 'date', 'dateTime', 'time', 'json', 'jsonb'];
 
     public function __construct($table, $fields)
     {
@@ -33,29 +31,11 @@ class MigrationCreator
     {
         foreach ($this->fields as $field) {
             if ($field->inlist) {
-                $this->inner .= (!empty($this->inner) ? str_repeat("\t", 3) : '') . $this->castField($field);
+                $this->inner .= (!empty($this->inner) ? str_repeat("\t", 3) : '')
+                    . $field->migration_line . ";\n"
+                    . (!empty($field->foreign) ? "\t\t\t". $field->foreign . ";\n" : '');
             }
         }
         return $this->inner;
     }
-
-    protected function castField($field)
-    {
-        return sprintf($this->line, $field->name, $field->type->name)
-            . ($field->nullable === 1 ? '->nullable()' : '') . $this->getDefault($field) . ';' . PHP_EOL;
-    }
-
-    protected function getDefault($field)
-    {
-        if($field->default === null){
-            return '';
-        }
-        if (in_array($field->type->name, $this->strings)) {
-            $default = sprintf('->default("%s")', $field->default);
-        } else {
-            $default = sprintf('->default(%s)', $field->default);
-        }
-        return $default;
-    }
-
 }
