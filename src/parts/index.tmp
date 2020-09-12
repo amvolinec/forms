@@ -19,12 +19,12 @@
                         <find route="%1$s" fields="%6$s" search="{{ $search ?? '' }}"></find>
                     </div>
                     <div class="card-body">
-                        <table class="table table-sm table-striped">
+                        <table class="table table-sm table-striped table-responsive-md">
                             <thead class="thead">
                             <tr>
                                 <th scope="col">#</th>
                                 %3$s
-                                <th scope="col">{{ __('Actions') }}</th>
+                                <th scope="col" style="width: 100px;">{{ __('Actions') }}</th>
                             </tr>
                             </thead>
                             <tbody>

@@ -41,7 +41,12 @@ class TableCreator
         $inner = '';
         foreach ($this->fields as $field) {
             if ($field->inlist) {
-                $inner .= (!empty($inner) ? str_repeat("\t", 9) : '') . sprintf($this->tBodyLine, $this->route, $field->name);
+                if($field->has_foreign){
+                    $_field = "{$field->prop['fieldName']}->{$field->prop['fieldToShow']}";
+                } else {
+                    $_field = $field->name;
+                }
+                $inner .= (!empty($inner) ? str_repeat("\t", 9) : '') . sprintf($this->tBodyLine, $this->route, $_field);
             }
         }
         return $inner;
