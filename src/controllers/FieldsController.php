@@ -122,7 +122,7 @@ class FieldsController extends Controller
                     'nullable' => isset($nullable[$i]) ? 1 : 0,
                     'fillable' => isset($fillable[$i]) ? 1 : 0,
                     'inlist' => isset($inlist[$i]) ? 1 : 0,
-                    'settings' => !empty($settings[$i]) ? trim($settings[$i]) : 0,
+                    'settings' => !empty($settings[$i]) ? trim($settings[$i]) : '',
                 ];
 
                 if (isset($ids[$i])) {

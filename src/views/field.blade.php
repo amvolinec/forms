@@ -50,6 +50,6 @@
     </div>
     <div class="col-md-12">
         <small style="color: #046666; text-align: right; width: 100%;">{{ $field->migration_line }}</small>
-{{--            {{ $field->foreign }}--}}
+        <small style="color: #046666; text-align: right; width: 100%;">{{ $field->foreign }}</small>
     </div>
 </div>

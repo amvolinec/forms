@@ -187,7 +187,8 @@
 
                         </form>
                         <div><strong>Settings:</strong></div>
-                        <div>{"belongsTo": "App\\User"}</div>
+                        <div>{"belongsTo": "App\\Company", "fieldName":"company", "fieldToShow": "name"}</div>
+                        <div>{"belongsToMany": "App\\Offer", "fieldName":"offers", "fieldToShow": "title"}</div>
                         <div>{"parameters": "13,3"}</div>
                         <div>{"parameters": "45"}</div>
                         <div>
