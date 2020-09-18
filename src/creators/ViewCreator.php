@@ -41,7 +41,8 @@ class ViewCreator
             if ($field->type->class === 'select') {
                 try {
                     $content = file_get_contents(__DIR__ . "/../parts/form-group-{$field->type->class}.blade.php");
-                    $this->inner .= sprintf($content, $field->name, $field->title, $this->getAdditional($field), $this->route, substr($field->name, 0, Str::plural(strlen($field->name) - 3)));
+                    $name = substr($field->name, 0, strlen($field->name) - 3);
+                    $this->inner .= sprintf($content, $field->name, $field->title, $this->getAdditional($field), $this->route, Str::plural($name));
                 } catch (\Exception $exception) {
                     die($exception->getMessage() . "\n" . $field->type->class);
                 }
