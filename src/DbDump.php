@@ -39,14 +39,14 @@ class DbDump extends Command
     public function handle()
     {
         if(!empty(env('DB_PASSWORD'))){
-            $cmd = sprintf("mysqldump -u %s -p%s -R --skip-triggers --no-create-info --no-create-db %s relations table_files fields types tables > %s",
+            $cmd = sprintf("mysqldump -u %s -p%s -R --skip-triggers --no-create-info --no-create-db %s fields tables > %s",
                 env('DB_USERNAME'),
                 env('DB_PASSWORD'),
                 env('DB_DATABASE'),
                 env('DB_DUMP_PATH')
             );
         } else {
-            $cmd = sprintf("mysqldump -u %s -R --skip-triggers --no-create-info --no-create-db %s relations table_files fields types tables > %s \n",
+            $cmd = sprintf("mysqldump -u %s -R --skip-triggers --no-create-info --no-create-db %s fields tables > %s \n",
                 env('DB_USERNAME'),
                 env('DB_DATABASE'),
                 env('DB_DUMP_PATH')
