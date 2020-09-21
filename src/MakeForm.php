@@ -55,6 +55,12 @@ class MakeForm extends Command
      */
     public function handle()
     {
+        $path = env('DB_DUMP_PATH');
+        if(empty($path)) throw new Exception("Not configured DB_DUMP_PATH");
+
+        Artisan::call("db:dump");
+        $this->info('DB dump created');
+
         $model_name = $this->argument('model');
         $this->model = Table::with('files')->where('model', '=', $model_name)->first();
 

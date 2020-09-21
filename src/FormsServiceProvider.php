@@ -33,6 +33,7 @@ class FormsServiceProvider extends ServiceProvider
         if ($this->app->runningInConsole()) {
             $this->commands([
                 MakeForm::class,
+                DbDump::class
             ]);
         }
         $this->publishes([
