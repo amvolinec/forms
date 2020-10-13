@@ -45,7 +45,9 @@ Run
 
 `composer dumpautoload`
 
-`php artisan migrate:fresh --seed`
+ `php artisan migrate`
+ 
+ `php artisan db:seed --class=TypeSeeder`
 
 Install the font awesome:
 
