@@ -49,6 +49,10 @@ Run
  
  `php artisan db:seed --class=TypeSeeder`
 
+Install laravel/permission
+
+`https://spatie.be/docs/laravel-permission`
+
 Install the font awesome:
 
 `npm install --save @fortawesome/fontawesome-free`
