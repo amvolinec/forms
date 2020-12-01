@@ -40,16 +40,9 @@ class %1$sController extends Controller
     public function store(Request $request)
     {
 
-        $path = null;
-        $file_name = '';
+        list($file_name, $path) = $this->extractFile($request);
 
-        if ($request->hasFile('file')) {
-            $file_name = $request->file('file')->getClientOriginalName();
-            $path = Storage::disk('uploads')->putFile('images', $request->file('file'));
-
-        }
-
-        $%3$s = %1$s::create($request->except('_method', '_token'));
+        $%3$s = %1$s::create($request->except('_method', '_token', 'file_uri'));
 
         if (!empty($path)) {
             $%3$s->file_name = $file_name;
@@ -91,15 +84,9 @@ class %1$sController extends Controller
      */
     public function update(Request $request, %1$s $%3$s)
     {
-        $%3$s->fill($request->except('_method', '_token', 'file'));
+        $%3$s->fill($request->except('_method', '_token', 'file_uri'));
 
-        $path = null;
-        $file_name = '';
-
-        if ($request->hasFile('file')) {
-            $file_name = $request->file('file')->getClientOriginalName();
-            $path = Storage::disk('uploads')->putFile('images', $request->file('file'));
-        }
+        list($file_name, $path) = $this->extractFile($request);
 
         if (!empty($path)) {
             $%3$s->file_name = $file_name;
@@ -137,4 +124,22 @@ class %1$sController extends Controller
             return $data->take(10)->get();
         }
     }
+
+        /**
+         * @param Request $request
+         * @return array
+         */
+        public function extractFile(Request $request): array
+        {
+            $file_name = null;
+            $path = null;
+
+            if ($request->hasFile('file_uri')) {
+                $file_name = $request->file('file_uri')->getClientOriginalName();
+                $path = $request->file('file_uri')->store(
+                    '%3$s/' . $request->user()->id, 'public'
+                );
+            }
+            return array($file_name, $path);
+        }
 }
