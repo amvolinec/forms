@@ -79,3 +79,7 @@ To create a form from model `Model`:
 If you want publish only find component:
 
     php artisan vendor:publish --tag=find --force 
+
+Please configure mysql dump in the file .env file
+
+    DB_DUMP_PATH=
