@@ -24,9 +24,9 @@ class TableStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|unique:tables|max:255',
-            'route' => 'required|unique:tables|max:255',
-            'model' => 'required|unique:tables|max:255',
+            'name' => 'required|unique:forms.tables|max:255',
+            'route' => 'required|unique:forms.tables|max:255',
+            'model' => 'required|unique:forms.tables|max:255',
         ];
     }
 }
