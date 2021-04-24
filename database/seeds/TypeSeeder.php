@@ -34,6 +34,6 @@ class TypeSeeder extends Seeder
             ['name' => 'softDeletes', 'class' => 'datetime'],
             ['name' => 'string', 'class' => 'file'],
         ];
-        DB::table('types')->insert($types);
+        DB::connection('forms')->table('types')->insert($types);
     }
 }

@@ -14,7 +14,7 @@ class CreateFieldsTable extends Migration
     public function up()
     {
 
-        Schema::create('tables', function (Blueprint $table) {
+        Schema::connection('forms')->create('tables', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('description')->nullable();
@@ -28,14 +28,14 @@ class CreateFieldsTable extends Migration
             $table->timestamps();
         });
 
-        Schema::create('types', function (Blueprint $table) {
+        Schema::connection('forms')->create('types', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('class')->nullable();
             $table->timestamps();
         });
 
-        Schema::create('fields', function (Blueprint $table) {
+        Schema::connection('forms')->create('fields', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('table_id')->nullable();
             $table->unsignedBigInteger('type_id')->default(1);
@@ -58,7 +58,7 @@ class CreateFieldsTable extends Migration
                 ->onDelete('cascade');
         });
 
-        Schema::create('table_files', function (Blueprint $table) {
+        Schema::connection('forms')->create('table_files', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('table_id')->nullable();
             $table->string('name');
@@ -70,7 +70,7 @@ class CreateFieldsTable extends Migration
                 ->onDelete('cascade');
         });
 
-        Schema::create('relations', function (Blueprint $table) {
+        Schema::connection('forms')->create('relations', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('field_id')->nullable();
             $table->unsignedBigInteger('to_field')->nullable();
@@ -95,10 +95,10 @@ class CreateFieldsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('relations');
-        Schema::dropIfExists('table_files');
-        Schema::dropIfExists('fields');
-        Schema::dropIfExists('types');
-        Schema::dropIfExists('tables');
+        Schema::connection('forms')->dropIfExists('relations');
+        Schema::connection('forms')->dropIfExists('table_files');
+        Schema::connection('forms')->dropIfExists('fields');
+        Schema::connection('forms')->dropIfExists('types');
+        Schema::connection('forms')->dropIfExists('tables');
     }
 }
