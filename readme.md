@@ -4,6 +4,38 @@ Change directory to `packages/avart/`.
 
 Run `git clone https://github.com/amvolinec/laravel-forms.git forms` to clone `forms` into right folder.
 
+Add  to .env file:
+
+    DB_FORMS_CONNECTION=forms
+    DB_FORMS_HOST=db
+    DB_FORMS_PORT=3306
+    DB_FORMS_DATABASE=dbname
+    DB_FORMS_USERNAME=dbusername
+    DB_FORMS_PASSWORD=dbpassword
+
+
+Add to config\database.php new connection
+
+    'forms' => [
+        'driver' => 'mysql',
+        'url' => env('DATABASE_URL'),
+        'host' => env('DB_FORMS_HOST', '127.0.0.1'),
+        'port' => env('DB_FORMS_PORT', '3306'),
+        'database' => env('DB_FORMS_DATABASE', 'forge'),
+        'username' => env('DB_FORMS_USERNAME', 'forge'),
+        'password' => env('DB_FORMS_PASSWORD', ''),
+        'unix_socket' => env('DB_SOCKET', ''),
+        'charset' => 'utf8mb4',
+        'collation' => 'utf8mb4_unicode_ci',
+        'prefix' => '',
+        'prefix_indexes' => true,
+        'strict' => true,
+        'engine' => null,
+        'options' => extension_loaded('pdo_mysql') ? array_filter([
+            PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
+        ]) : [],
+    ],
+
 Add 
 
 `Avart\Forms\FormsServiceProvider::class,`
