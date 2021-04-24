@@ -83,11 +83,12 @@ Run
 
 Install laravel/permission
 
-`https://spatie.be/docs/laravel-permission`
+`https://spatie.be/docs/laravel-permission/v4/installation-laravel`
+`https://spatie.be/docs/laravel-permission/v4/basic-usage/basic-usage`
 
 Install the font awesome:
 
-`npm install --save @fortawesome/fontawesome-free`
+`npm install --save @fortawesome/fontawesome-free` or `yarn add @fortawesome/fontawesome-free`
 
 Add to the app.scss file following lines:
 
@@ -96,7 +97,7 @@ Add to the app.scss file following lines:
     @import '~@fortawesome/fontawesome-free/scss/solid';
     @import '~@fortawesome/fontawesome-free/scss/brands';
 
-`npm run dev`
+`npm run dev` or `yarn run dev`
 
 Please register find component in to the `resources/js/app.js` 
 

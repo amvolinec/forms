@@ -7,6 +7,7 @@ use Illuminate\Support\Str;
 
 class Field extends Model
 {
+    protected $connection= 'forms';
     protected $fillable = ['table_id', 'type_id', 'name', 'title', 'fillable', 'nullable', 'inlist', 'default', 'settings'];
     protected $line = '$table->%2$s(\'%1$s\'%3$s)';
     protected $strings = ['string', 'text', 'char', 'longText', 'date', 'dateTime', 'time', 'json', 'jsonb'];
