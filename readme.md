@@ -1,4 +1,9 @@
 Create folder `packages/avart/` in the app root folder.
+    
+    mkdir packages
+    cd packages
+    mkdir avart
+    cd avart
 
 Change directory to `packages/avart/`.
 
