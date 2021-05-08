@@ -3,6 +3,7 @@
 namespace Avart\Forms;
 
 use Avart\Forms\Creators\ControllerCreator;
+use Avart\Forms\Creators\CreatorInterface;
 use Avart\Forms\Creators\MigrationCreator;
 use Avart\Forms\Creators\TableCreator;
 use Avart\Forms\Creators\ViewCreator;
@@ -56,7 +57,7 @@ class MakeForm extends Command
     public function handle()
     {
         $path = env('DB_DUMP_PATH');
-        if(empty($path)) throw new Exception("Not configured DB_DUMP_PATH");
+        if (empty($path)) throw new Exception("Not configured DB_DUMP_PATH");
 
         Artisan::call("db:dump");
         $this->info('DB dump created');
@@ -128,7 +129,7 @@ class MakeForm extends Command
             if ($field->fillable === 1) {
                 array_push($str, '"' . $field->name . '"');
             }
-            if($field->has_foreign && isset($field->prop['belongsTo'])){
+            if ($field->has_foreign && isset($field->prop['belongsTo'])) {
                 $content = file_get_contents(__DIR__ . '/parts/belongsTo.stub');
                 $belongs .= "\n\n" . sprintf($content, $field->prop['fieldName'], $field->prop['belongsTo']);
             }
@@ -151,30 +152,36 @@ class MakeForm extends Command
         $creator = new TableCreator($this->model->name, $this->model->route, $this->model->fields, $this->model->description);
 
         $fileName = $dir . '/index.blade.php';
-        file_put_contents($fileName, $creator->get());
-        return $fileName;
+        return $this->putFile($fileName, $creator);
     }
 
     protected function createMigration()
     {
         $fileName = $this->path . '/database/migrations/' . date('Y_m_d_His') . '_create_' . $this->model->name . '_table.php';
         $creator = new MigrationCreator($this->model->name, $this->model->fields);
-        file_put_contents($fileName, $creator->create());
-        return $fileName;
+        return $this->putFile($fileName, $creator);
     }
 
     protected function createController()
     {
         $fileName = $this->path . '/app/Http/Controllers/' . $this->model->model . 'Controller.php';
         $creator = new ControllerCreator($this->model->model, $this->model->name, $this->model->route);
-        file_put_contents($fileName, $creator->create());
-        return $fileName;
+        return $this->putFile($fileName, $creator);
     }
 
     protected function createViewCreate()
     {
         $fileName = $this->path . '/resources/views/' . $this->model->route . '/create.blade.php';
         $creator = new ViewCreator($this->model->model, $this->model->route, $this->model->fields, $this->model->name);
+        return $this->putFile($fileName, $creator);
+    }
+
+    protected function putFile($fileName, CreatorInterface $creator)
+    {
+        if (file_exists($fileName)) {
+            copy($fileName, $fileName . '.back');
+        }
+
         file_put_contents($fileName, $creator->create());
         return $fileName;
     }
@@ -236,7 +243,7 @@ class MakeForm extends Command
             return "Route already added!";
         }
 
-        $added = "Route::group(['middleware' => ['web', 'auth']], function () {" . "\n    " . $generated . "\n    " . $search[0] . "\n    ". $search[1];
+        $added = "Route::group(['middleware' => ['web', 'auth']], function () {" . "\n    " . $generated . "\n    " . $search[0] . "\n    " . $search[1];
 
         if (strpos($routes, "Route::group(['middleware' => ['web', 'auth']], function () {") !== false) {
             $routes = str_replace("Route::group(['middleware' => ['web', 'auth']], function () {", $added, $routes);

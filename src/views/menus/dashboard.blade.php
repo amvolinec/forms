@@ -7,13 +7,13 @@
             <!-- Main Menu -->
             <div class="side-menu-container">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="{{ route('forms.index') }}"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+                    <li class="active"><a href="{{ route('forms.index') }}"><i class="fa fa-tachometer-alt"></i> Dashboard</a>
                     </li>
                     <hr>
-                    <li><a href="#"><i class="far fa-chart-bar"></i> Link</a></li>
+                    <li><a href="#"><i class="fa fa-chart-bar"></i> Link</a></li>
                     <!-- Dropdown-->
                     <li class="panel panel-default" id="dropdown">
-                        <a data-toggle="collapse" href="#dropdown-lvl1"><i class="fas fa-cogs"></i> Settings <i
+                        <a data-toggle="collapse" href="#dropdown-lvl1"><i class="fa fa-cogs"></i> Settings <i
                                 class="fa fa-caret-down" aria-hidden="true"></i>
                         </a>
 
@@ -21,7 +21,7 @@
                         <div id="dropdown-lvl1" class="panel-collapse collapse">
                             <div class="panel-body">
                                 <ul class="nav navbar-nav">
-                                    <li><a href="#"><i class="fas fa-sitemap"></i> Users</a></li>
+                                    <li><a href="#"><i class="fa fa-sitemap"></i> Users</a></li>
 
                                 </ul>
                             </div>

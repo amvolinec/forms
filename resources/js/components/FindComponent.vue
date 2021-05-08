@@ -13,10 +13,10 @@
             </div>
         </div>
         <div class="d-inline-block">
-            <div class="drop-btn" @click="getView"><i class="far fa-search"></i></div>
+            <div class="drop-btn" @click="getView"><i class="fa fa-search"></i></div>
         </div>
         <div class="d-inline-block">
-            <div class="drop-btn" @click="clearSearch"><i class="fas fa-undo"></i></div>
+            <div class="drop-btn" @click="clearSearch"><i class="fa fa-undo"></i></div>
         </div>
     </div>
 </template>

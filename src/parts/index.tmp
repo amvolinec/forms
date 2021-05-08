@@ -37,10 +37,10 @@
                                               method="post" onsubmit="return confirm('Do you really want to delete?');">
                                             @method('delete')
                                             @csrf
-                                            <button class="btn btn-sm btn-outline-danger" type="submit"><i class="fas fa-trash"></i></button>
+                                            <button class="btn btn-sm btn-outline-danger" type="submit"><i class="fa fa-trash"></i></button>
                                         </form>
                                         <a class="btn btn-sm btn-outline-success float-right" style="margin: 0 8px;"
-                                           href="{{ route('%1$s.edit', $%1$s->id) }}"><i class="fas fa-edit"></i></a>
+                                           href="{{ route('%1$s.edit', $%1$s->id) }}"><i class="fa fa-edit"></i></a>
                                     </td>
                                 </tr>
                             @endforeach

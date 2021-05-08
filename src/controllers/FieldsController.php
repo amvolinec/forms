@@ -116,8 +116,8 @@ class FieldsController extends Controller
 
                 $data = [
                     'name' => $name,
-                    'title' => $titles[$i],
-                    'type_id' => $types[$i],
+                    'title' => $titles[$i] ?? 'UNDEFINED',
+                    'type_id' => $types[$i] ?? null,
                     'default' => !empty($defaults[$i]) ? trim($defaults[$i]) : null,
                     'nullable' => isset($nullable[$i]) ? 1 : 0,
                     'fillable' => isset($fillable[$i]) ? 1 : 0,

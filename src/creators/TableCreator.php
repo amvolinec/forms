@@ -7,7 +7,7 @@ namespace Avart\Forms\Creators;
 use Illuminate\Support\Str;
 use SebastianBergmann\CodeCoverage\Report\PHP;
 
-class TableCreator
+class TableCreator implements CreatorInterface
 {
     protected $route;
     protected $fields;
@@ -52,7 +52,7 @@ class TableCreator
         return $inner;
     }
 
-    public function get()
+    public function create()
     {
         $content = file_get_contents(__DIR__ . '/../parts/index.tmp');
         $content = sprintf($content, $this->route, $this->getPluralName(), $this->getHeader(), $this->getBody(), $this->table, $this->description);

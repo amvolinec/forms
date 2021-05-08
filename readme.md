@@ -112,3 +112,7 @@ To create a form from model `Model`:
 If you want publish only find component:
 
     php artisan vendor:publish --tag=find --force 
+
+How to use:
+
+    php artisan make:form Model
