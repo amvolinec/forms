@@ -88,8 +88,8 @@ Run
 
 Install laravel/permission
 
-`https://spatie.be/docs/laravel-permission/v4/installation-laravel`
-`https://spatie.be/docs/laravel-permission/v4/basic-usage/basic-usage`
+https://spatie.be/docs/laravel-permission/v4/installation-laravel
+https://spatie.be/docs/laravel-permission/v4/basic-usage/basic-usage
 
 Install the font awesome:
 
