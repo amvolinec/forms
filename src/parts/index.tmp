@@ -10,7 +10,7 @@
                             <form action="{{ route('%1$s.create') }}">
                                 @method('post')
                                 @csrf
-                                <button class="btn btn-success">+</button>
+                                <button class="btn btn-success"><i aria-hidden="true" class="fa fa-plus"></i></button>
                             </form>
                         </div>
                         <div class="d-inline-block" style="vertical-align: top; padding: 6px;">
