@@ -7,7 +7,7 @@ use Avart\Forms\Models\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Str;
 
-class ViewCreator
+class ViewCreator implements CreatorInterface
 {
     protected $model;
     protected $table;

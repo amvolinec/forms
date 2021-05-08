@@ -7,8 +7,9 @@ use Avart\Forms\Models\Field;
 use Avart\Forms\Models\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 
-class ControllerCreator
+class ControllerCreator implements CreatorInterface
 {
     protected $model;
     protected $router;
@@ -71,7 +72,8 @@ class ControllerCreator
 //            Log::info('related model: ' . $field->name . ' ' . $field->related_model);
 
             if (isset($field->related_model)) {
-                array_push($parameters, "'{$field->prop['fieldName']}' => \\{$field->prop['belongsTo']}::all()");
+                $plural =  Str::plural($field->prop['fieldName']);
+                array_push($parameters, "'{$plural}' => \\{$field->prop['belongsTo']}::all()");
             }
         }
 

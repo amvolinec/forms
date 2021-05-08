@@ -3,7 +3,7 @@
 
 namespace Avart\Forms\Creators;
 
-class MigrationCreator
+class MigrationCreator implements CreatorInterface
 {
     protected $fields;
     protected $table;
