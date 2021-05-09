@@ -110,36 +110,34 @@ class %1$sController extends Controller
         return redirect()->route('%3$s.index');
     }
 
-    public function find(Request $request, $search = false)
+    public function find(Request $request, $search = null)
     {
         $string = $search ?? $request->get('string');
 
-        $data = %1$s::where('name', 'like', '%%' . $string . '%%')
-            // ->orWhere('title', 'like', '%%' . $string . '%%')
-            ;
+        $data = %1$s::where('name', 'like', '%%' . $string . '%%');
 
         if ($search !== false && !empty($search)) {
             return view('%3$s.index', ['%2$s' => $data->paginate(20), 'search' => $string]);
-        } else {
-            return $data->take(10)->get();
         }
+
+        return $data->take(10)->get();
     }
 
-        /**
-         * @param Request $request
-         * @return array
-         */
-        public function extractFile(Request $request): array
-        {
-            $file_name = null;
-            $path = null;
+    /**
+     * @param Request $request
+     * @return array
+     */
+    public function extractFile(Request $request): array
+    {
+        $file_name = null;
+        $path = null;
 
-            if ($request->hasFile('file_uri')) {
-                $file_name = $request->file('file_uri')->getClientOriginalName();
-                $path = $request->file('file_uri')->store(
-                    '%3$s/' . $request->user()->id, 'public'
-                );
-            }
-            return array($file_name, $path);
+        if ($request->hasFile('file_uri')) {
+            $file_name = $request->file('file_uri')->getClientOriginalName();
+            $path = $request->file('file_uri')->store(
+                '%3$s/' . $request->user()->id, 'public'
+            );
         }
+        return array($file_name, $path);
+    }
 }
