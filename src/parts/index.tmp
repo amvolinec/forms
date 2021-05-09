@@ -3,19 +3,17 @@
 @section('content')
     <div class="container-fluid">
         <div class="row justify-content-center">
-            <div class="col-md-12">
+            <div class="col-md-10">
                 <div class="card">
-                    <div class="card-header">
-                        <div class="d-inline-block" style="vertical-align: top;">
+                    <div class="card-header d-flex">
+                        <div class="p-2" style="vertical-align: top;">
                             <form action="{{ route('%1$s.create') }}">
                                 @method('post')
                                 @csrf
                                 <button class="btn btn-success"><i aria-hidden="true" class="fa fa-plus"></i></button>
                             </form>
                         </div>
-                        <div class="d-inline-block" style="vertical-align: top; padding: 6px;">
-                            <h4 >{{ __('%2$s') }}</h4>
-                        </div>
+                        <div style="padding: 6px; margin: 8px;position: relative;"><h4>{{ __('%2$s') }}</h4></div>
                         <find route="%1$s" fields="%6$s" search="{{ $search ?? '' }}"></find>
                     </div>
                     <div class="card-body">
