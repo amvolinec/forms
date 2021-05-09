@@ -38,7 +38,8 @@
 .dropdown-select {
     background: #fff;
     position: absolute;
-    width: inherit;
+    width: calc(100% - 71px);
+    top: 36px;
     height: auto;
     z-index: 1;
     box-shadow: 3px 3px 6px rgba(100, 100, 100, 0.5);
