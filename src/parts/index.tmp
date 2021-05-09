@@ -13,7 +13,9 @@
                                 <button class="btn btn-success"><i aria-hidden="true" class="fa fa-plus"></i></button>
                             </form>
                         </div>
-                        <div style="padding: 6px; margin: 8px;position: relative;"><h4>{{ __('%2$s') }}</h4></div>
+                        <div style="padding: 5px;">
+                            <div style="margin: 8px 0 0 8px; position: relative;"><h4>{{ __('%2$s') }}</h4></div>
+                        </div>
                         <find route="%1$s" fields="%6$s" search="{{ $search ?? '' }}"></find>
                     </div>
                     <div class="card-body">
