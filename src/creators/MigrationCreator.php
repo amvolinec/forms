@@ -33,7 +33,7 @@ class MigrationCreator implements CreatorInterface
             if ($field->inlist) {
                 $this->inner .= (!empty($this->inner) ? str_repeat("\t", 3) : '')
                     . $field->migration_line . ";\n"
-                    . (!empty($field->foreign) ? "\t\t\t". $field->foreign . ";\n" : '');
+                    . (!empty($field->foreign) ? "\t\t\t". $field->foreign . "\n" : '');
             }
         }
         return $this->inner;
