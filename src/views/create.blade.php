@@ -64,7 +64,7 @@
                                         for="description">{{ __("Searchable fields (coma separated)") }}</label>
                                     <input id="description" type="text" name="description"
                                            class="form-control @error('description') is-invalid @enderror"
-                                           value="{{ $table->description ?? old('description') }}" required>
+                                           value="{{ $table->description ?? old('description') }}">
                                     @error('description')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -163,6 +163,14 @@
                                 </div>
 
                             </div>
+
+                            <div class="row m-1">
+                                <div class="form-group col-md-12">
+                                    <button id="add-field" type="button"
+                                            class="btn btn-success">{{ __('+ Add field') }}</button>
+                                </div>
+                            </div>
+
                             <div class="row p-0 m-0" id="form-inner">
                                 @if(isset($fields) && !empty($fields))
                                     @foreach($fields as $field)
@@ -170,14 +178,8 @@
                                     @endforeach
                                 @endif
                             </div>
-                            <div class="row">
-                                <div class="form-group col-md-12">
-                                    <button id="add-field" type="button"
-                                            class="btn btn-success">{{ __('+ Add field') }}</button>
-                                </div>
-                            </div>
 
-                            <div class="row">
+                            <div class="row mt-3">
                                 <div class="form-group col-md-12">
                                     <button id="store-fields" type="button"
                                             class="btn btn-success float-right"><i
