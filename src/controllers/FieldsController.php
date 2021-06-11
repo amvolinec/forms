@@ -140,8 +140,9 @@ class FieldsController extends Controller
         }
     }
 
-    public function get($model)
+    public function get()
     {
+        $model = request()->get('model');
         $route = strtolower($model);
         $plural = Str::plural($route);
         return ['route' => $route, 'plural' => $plural];

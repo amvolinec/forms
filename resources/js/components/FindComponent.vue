@@ -2,7 +2,7 @@
     <div class="d-flex mt-1 ml-2">
 
         <div class="p-2 input-group">
-            <input class="d-inline-block form-control form-control-sm" id="find" type="text" v-model="string"
+            <input class="d-inline-block form-control form-control" id="find" type="text" v-model="string"
                    @keyup="findString">
             <div class="dropdown-select" v-if="showDrop">
                 <ul>
