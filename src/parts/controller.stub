@@ -95,10 +95,20 @@ class %1$sController extends Controller
 
         $data = %1$s::where('name', 'like', '%%' . $string . '%%');
 
-        if ($search !== false && !empty($search)) {
+        if ($search !== false && !empty($search) && request()->isXmlHttpRequest() && (int)$string > 0) {
+            $result = %1$s::find($string);
+            if ($result) {
+                return [%1$s::findOrFail($string)];
+            }
+        }
+
+        if ($search !== false && !empty($search) && !$request->isXmlHttpRequest()) {
             return view('%3$s.index', ['%2$s' => $data->paginate(20), 'search' => $string]);
         }
 
         return $data->take(10)->get();
+
+
+
     }
 }
