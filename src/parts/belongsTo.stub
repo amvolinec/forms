@@ -1,4 +1,4 @@
     public function %1$s()
     {
-        return $this->belongsTo('%2$s');
+        return $this->belongsTo(%2$s::class);
     }

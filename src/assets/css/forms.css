@@ -38,6 +38,7 @@
     height: calc(1.6em + 0.5rem + 2px);
     padding: 0.375rem 0.3rem;
     font-size: 0.9rem;
+    border-radius: 6px;
 }
 
 .form-inner .form-group {

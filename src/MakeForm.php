@@ -78,7 +78,7 @@ class MakeForm extends Command
             // Create Model
             if ($this->model->create_model === 1) {
                 Artisan::call("make:model {$this->model->model}");
-                $path = app_path("{$this->model->model}.php");
+                $path = app_path("/Models/{$this->model->model}.php");
                 $this->info('Model created ' . $path);
 
                 $this->updateModel($path);
@@ -124,19 +124,24 @@ class MakeForm extends Command
         $str = [];
         $fields = $this->model->fields;
         $belongs = "";
+        $dir = __DIR__;
 
         foreach ($fields as $field) {
             if ($field->fillable === 1) {
                 array_push($str, '"' . $field->name . '"');
             }
             if ($field->has_foreign && isset($field->prop['belongsTo'])) {
-                $content = file_get_contents(__DIR__ . '/parts/belongsTo.stub');
-                $belongs .= "\n\n" . sprintf($content, $field->prop['fieldName'], $field->prop['belongsTo']);
+                $model = explode('\\',$field->prop['belongsTo']);
+                $content = file_get_contents($dir . '/parts/belongsTo.stub');
+                $belongs .= "\n\n" . sprintf($content, $field->prop['fieldName'], end($model));
             }
         }
         $content = file_get_contents($path);
+
         $fillable = sprintf($this->fillable, implode(', ', $str));
-        $content = str_replace('//', ($fillable . $belongs . "\n\t//"), $content);
+
+        // TODO::change find what in new Model version
+        $content = str_replace('use HasFactory;', ("use HasFactory;\n\t" . $fillable . $belongs), $content);
         file_put_contents($path, $content);
     }
 
@@ -235,9 +240,9 @@ class MakeForm extends Command
         $file = base_path('routes/web.php');
         $routes = file_get_contents($file);
 
-        $generated = "Route::resource('{$this->model->route}', '{$this->model->model}Controller');";
-        $search[0] = "Route::post('{$this->model->route}/find/', '{$this->model->model}Controller@find')->name('{$this->model->route}.find');";
-        $search[1] = "Route::get('{$this->model->route}/find/{string}', '{$this->model->model}Controller@find')->name('{$this->model->route}.find.get');";
+        $generated = "Route::resource('{$this->model->route}', {$this->model->model}Controller::class);";
+        $search[0] = "Route::post('{$this->model->route}/find/', {[$this->model->model}Controller::class, 'find'])->name('{$this->model->route}.find');";
+        $search[1] = "Route::get('{$this->model->route}/find/{string}', {[$this->model->model}Controller::class, 'find'])->name('{$this->model->route}.find.get');";
 
         if (strpos($routes, $generated) !== false) {
             return "Route already added!";

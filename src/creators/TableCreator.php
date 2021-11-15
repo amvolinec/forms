@@ -42,7 +42,7 @@ class TableCreator implements CreatorInterface
         foreach ($this->fields as $field) {
             if ($field->inlist) {
                 if($field->has_foreign){
-                    $_field = "{$field->prop['fieldName']}->{$field->prop['fieldToShow']}";
+                    $_field = "{$field->prop['fieldName']}->{$field->prop['fieldToShow']} ?? ''";
                 } else {
                     $_field = $field->name;
                 }
@@ -54,7 +54,7 @@ class TableCreator implements CreatorInterface
 
     public function create()
     {
-        $content = file_get_contents(__DIR__ . '/../parts/index.tmp');
+        $content = file_get_contents(__DIR__ . '/../parts/index.stub');
         $content = sprintf($content, $this->route, $this->getPluralName(), $this->getHeader(), $this->getBody(), $this->table, $this->description);
         return $content;
     }

@@ -1,4 +1,4 @@
-                            <div class="form-group row">
+                            <div class="mb-3 row">
                                 <label for="%1$s" class="col-md-4 col-form-label text-md-right">{{ __('%2$s') }}</label>
 
                                 <div class="col-md-6">

@@ -1,0 +1,66 @@
+@section('styles')
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+@endsection
+
+@section('scripts')
+    <script src="{{ asset('admin.js') }}" defer></script>
+@endsection
+
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight flex">
+            <div class="p-2" style="vertical-align: top;">
+                <form action="{{ route('%1$s.create') }}">
+                    @method('post')
+                    @csrf
+                    <button class="btn btn-success"><i aria-hidden="true" class="fa fa-plus"></i></button>
+                </form>
+            </div>
+            <div style="padding: 5px;">
+                <div style="margin: 8px 0 0 8px; position: relative;"><h4>{{ __('%2$s') }}</h4></div>
+            </div>
+            <div id="admin">
+                <find-component route="%1$s" fields="%6$s" search="{{ $search ?? '' }}"></find-component>
+            </div>
+        </h2>
+    </x-slot>
+    <x-slot name="slot">
+        <div class="py-12">
+            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                    <div class="p-6 bg-white border-b border-gray-200">
+                        <table class="table table-sm text-sm table-striped table-responsive-md">
+                            <thead class="table-dark">
+                            <tr>
+                                <th scope="col">#</th>
+                                %3$s
+                                <th scope="col" style="width: 100px;">{{ __('Actions') }}</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($%5$s AS $%1$s)
+                                <tr>
+                                    <th scope="row">{{ $%1$s->id  }}</th>
+                                    %4$s
+                                    <td>
+                                        <form class="float-right" action="{{ route('%1$s.destroy', $%1$s->id) }}"
+                                              method="post" onsubmit="return confirm('Do you really want to delete?');">
+                                            @method('delete')
+                                            @csrf
+                                            <button class="btn btn-sm btn-outline-danger" type="submit"><i class="fa fa-trash"></i></button>
+                                        </form>
+                                        <a class="btn btn-sm btn-outline-success float-right" style="margin: 0 8px;"
+                                           href="{{ route('%1$s.edit', $%1$s->id) }}"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                    </td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+                        {{ $%5$s->links() }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </x-slot>
+</x-app-layout>

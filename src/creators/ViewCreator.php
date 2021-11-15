@@ -26,9 +26,9 @@ class ViewCreator implements CreatorInterface
     public function create()
     {
         if($this->isFileUpload()){
-            $content = file_get_contents(__DIR__ . '/../parts/create-fileupload.tmp');
+            $content = file_get_contents(__DIR__ . '/../parts/create-fileupload.stub');
         } else {
-            $content = file_get_contents(__DIR__ . '/../parts/create.tmp');
+            $content = file_get_contents(__DIR__ . '/../parts/create.stub');
         }
 
         $content = sprintf($content, $this->model, $this->route, $this->getInner());

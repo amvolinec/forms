@@ -14,11 +14,9 @@
                 </ul>
             </div>
 
-            <div class="input-group-append">
-                <button class="btn btn-sm btn-outline-info" @click="getView"><i class="fa fa-search"></i></button>
-                <button class="btn btn-sm btn-outline-secondary" @click="clearSearch"><i class="fa fa-undo"></i>
-                </button>
-            </div>
+            <button class="btn btn-sm btn-outline-info" @click="getView"><i class="fa fa-search"></i></button>
+            <button class="btn btn-sm btn-outline-secondary" @click="clearSearch"><i class="fa fa-undo"></i>
+            </button>
         </div>
 
     </div>
@@ -62,9 +60,9 @@ export default {
 
                 this.handleLi();
 
-            }  else if(e.keyCode === 38 && this.showDrop === true) {
+            } else if (e.keyCode === 38 && this.showDrop === true) {
 
-                if(this.liSelected > 0) {
+                if (this.liSelected > 0) {
                     this.liSelected--
                 } else {
                     this.liSelected = this.items.length;
@@ -92,7 +90,7 @@ export default {
                     });
             }
         }, setItem(item) {
-            if(!this.isAjax) {
+            if (!this.isAjax) {
                 document.location.href = '/' + this.route + '/' + item.id;
                 return false;
             } else {
@@ -100,10 +98,10 @@ export default {
                 this.showDrop = false
             }
         }, getView() {
-            if(!this.isAjax) {
+            if (!this.isAjax) {
                 document.location.href = '/' + this.route + '/find/' + this.string;
             } else {
-                if(this.string.length === 0) {
+                if (this.string.length === 0) {
                     for (let i = 0; i < this.items.length; i++) {
                         if (this.items[i].selected === 'selected') {
                             this.$emit('setItem', this.items[i].id)
@@ -118,7 +116,7 @@ export default {
                 this.showDrop = false
             }
         }, clearSearch() {
-            if(!this.isAjax) {
+            if (!this.isAjax) {
                 document.location.href = '/' + this.route;
             } else {
                 this.$emit('clearSearch', this.string)

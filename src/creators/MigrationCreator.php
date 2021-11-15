@@ -18,7 +18,7 @@ class MigrationCreator implements CreatorInterface
 
     public function create()
     {
-        $content = file_get_contents(__DIR__ . '/../parts/migration.tmp');
+        $content = file_get_contents(__DIR__ . '/../parts/migration.stub');
 
         $inner = $this->getInner();
 

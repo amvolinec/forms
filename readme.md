@@ -18,6 +18,8 @@ Add  to .env file:
     DB_FORMS_USERNAME=dbusername
     DB_FORMS_PASSWORD=dbpassword
 
+Add DB dump path 
+    DB_DUMP_PATH=
 
 Add to config\database.php new connection
 
@@ -94,24 +96,29 @@ https://spatie.be/docs/laravel-permission/v4/basic-usage/basic-usage
 
 Install the font awesome:
 
-`npm install --save @fortawesome/fontawesome-free` or `yarn add @fortawesome/fontawesome-free`
+    npm i fontawesome-4.7
 
 Add to the app.scss file following lines:
 
-    @import '~@fortawesome/fontawesome-free/scss/fontawesome';
-    @import '~@fortawesome/fontawesome-free/scss/regular';
-    @import '~@fortawesome/fontawesome-free/scss/solid';
-    @import '~@fortawesome/fontawesome-free/scss/brands';
+    @import 'drop';
+    @import "node_modules/fontawesome-4.7/scss/font-awesome.scss";
 
 `npm run dev` or `yarn run dev`
 
-Please register find component in to the `resources/js/app.js` 
+Please register find component in new file called admin.js `resources/js/admin.js` 
 
-    Vue.component('find', require('./components/FindComponent.vue').default);
+    import { createApp } from "vue";
+    import FindComponent from "./components/FindComponent.vue";
+    
+    createApp({
+    components: {
+        FindComponent
+    }
+    }).mount('#admin')
 
 If you want publish only find component:
 
-    php artisan vendor:publish --tag=find --force 
+    php artisan vendor:publish --tag=find --force
 
 How to use:
 
